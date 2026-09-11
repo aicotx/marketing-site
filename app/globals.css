@@ -77,6 +77,13 @@
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) * 1.25);
 
+  /* Tailwind's named sizes ship their own line-heights; the site uses one rhythm */
+  --text-xs--line-height: 1.55;
+  --text-sm--line-height: 1.55;
+  --text-base--line-height: 1.55;
+  --text-lg--line-height: 1.55;
+  --text-xl--line-height: 1.55;
+
   /* type scale: size / line-height / letter-spacing per role */
   --text-display: clamp(42px, 6.4vw, 84px);
   --text-display--line-height: 0.98;
@@ -167,11 +174,12 @@
 
 /* running copy: paragraph rhythm, links, emphasis */
 @utility prose-site {
-  @apply text-body-lg text-foreground;
-  & p {
-    @apply mb-[1.35em];
+  /* size lives on the paragraphs so a 68ch max-width on the wrapper measures at 16px */
+  @apply text-foreground;
+  & :where(p) {
+    @apply text-body-lg mb-[1.35em];
   }
-  & p:last-child {
+  & :where(p:last-child) {
     @apply mb-0;
   }
   & a {
@@ -202,4 +210,43 @@
   .mini-fig .acc-ln { fill: none; stroke: var(--primary); stroke-width: 1.5; }
   .mini-fig .dot { fill: #d5c9b0; }
   .mini-fig text { font-family: var(--font-mono); font-size: 9px; fill: var(--muted-foreground); letter-spacing: 0.04em; }
+}
+
+/* full-height vertical rails framing the content well */
+@layer base {
+  @media (min-width: 1120px) {
+    body::before,
+    body::after {
+      content: "";
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      background: var(--border);
+      z-index: 1;
+      pointer-events: none;
+    }
+    body::before { left: calc(50% - var(--container-rail) / 2); }
+    body::after  { right: calc(50% - var(--container-rail) / 2); }
+  }
+}
+
+/* hairline-ruled bullet list with an em-dash marker */
+@utility ruled-list {
+  list-style: none;
+  & > li {
+    position: relative;
+    padding: 12px 0 12px 28px;
+    border-bottom: 1px solid var(--border);
+    color: var(--foreground);
+  }
+  & > li:first-child {
+    border-top: 1px solid var(--border);
+  }
+  & > li::before {
+    content: "—";
+    position: absolute;
+    left: 0;
+    color: var(--primary);
+  }
 }
