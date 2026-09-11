@@ -161,7 +161,7 @@ If one is later reused, extract then.
 - **Verify:** all three work; disabled correctly under `prefers-reduced-motion`.
 
 ### 7. Cleanup and deploy
-- Delete `index.html`, `*/index.html`, `css/`, `js/`, `img/`, root `favicon.svg`.
+- Delete `index.html`, `*/index.html`, `css/`, `js/`. (`img/` already moved to `public/img/`; keep it.)
 - README: dev/build commands, remove `?v=N` cache-busting note, Vercel deploys from `main`.
 - `.gitignore`: `node_modules`, `.next`, `.vercel`, `.env*`, `docs/reference/`.
 - Vercel: import repo, framework auto-detected, add `aicotx.com`.
