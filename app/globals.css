@@ -77,6 +77,44 @@
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) * 1.25);
 
+  /* type scale: size / line-height / letter-spacing per role */
+  --text-display: clamp(42px, 6.4vw, 84px);
+  --text-display--line-height: 0.98;
+  --text-display--letter-spacing: -0.043em;
+  --text-headline: clamp(40px, 5.8vw, 72px);
+  --text-headline--line-height: 1;
+  --text-headline--letter-spacing: -0.04em;
+  --text-band: clamp(36px, 4.8vw, 64px);
+  --text-band--line-height: 1;
+  --text-band--letter-spacing: -0.04em;
+  --text-title: clamp(30px, 3.6vw, 48px);
+  --text-title--line-height: 1.04;
+  --text-title--letter-spacing: -0.035em;
+  --text-subtitle: clamp(28px, 3.2vw, 40px);
+  --text-subtitle--line-height: 1.55;
+  --text-subtitle--letter-spacing: -0.035em;
+  --text-essay: clamp(25px, 2.8vw, 34px);
+  --text-essay--line-height: 1.55;
+  --text-essay--letter-spacing: -0.03em;
+  --text-entry: clamp(22px, 2.2vw, 27px);
+  --text-entry--line-height: 1.15;
+  --text-entry--letter-spacing: -0.03em;
+  --text-lede: clamp(18px, 1.7vw, 22px);
+  --text-lede--line-height: 1.45;
+  --text-lede--letter-spacing: -0.02em;
+  --text-page-lede: clamp(16.5px, 1.5vw, 19px);
+  --text-page-lede--line-height: 1.55;
+  --text-band-body: clamp(16px, 1.4vw, 18.5px);
+  --text-band-body--line-height: 1.55;
+  --text-body-lg: clamp(16px, 1.3vw, 18px);
+  --text-body-lg--line-height: 1.55;
+  --text-kicker: 15px;
+  --text-kicker--line-height: 1.55;
+  --text-kicker--letter-spacing: -0.04em;
+  --text-label: 11.5px;
+  --text-label--line-height: 1.55;
+  --text-label--letter-spacing: 0.16em;
+
   /* fonts: variables are set by next/font in app/layout.tsx */
   --font-sans: var(--font-instrument-sans), "Helvetica Neue", Arial, sans-serif;
   --font-mono: var(--font-dm-mono), "SFMono-Regular", Consolas, monospace;
@@ -93,9 +131,53 @@
     @apply border-border outline-ring/50;
   }
   html {
-    @apply font-sans;
+    @apply font-sans scroll-smooth motion-reduce:scroll-auto;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground text-base leading-[1.55] antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  ::selection {
+    @apply bg-primary text-white;
+  }
+  h1,
+  h2,
+  h3 {
+    @apply font-normal text-ink text-balance;
+  }
+  strong {
+    @apply text-ink font-semibold;
+  }
+}
+
+/* ---------- named text roles ---------- */
+
+/* mono eyebrow above a section; <em> inside is the rust highlight */
+@utility kicker {
+  @apply font-mono text-kicker text-muted-foreground;
+  & em {
+    @apply not-italic text-primary;
+  }
+}
+
+/* small uppercase sans label (list headings, column heads) */
+@utility label-caps {
+  @apply text-label font-semibold uppercase text-rust-deep;
+}
+
+/* running copy: paragraph rhythm, links, emphasis */
+@utility prose-site {
+  @apply text-body-lg text-foreground;
+  & p {
+    @apply mb-[1.35em];
+  }
+  & p:last-child {
+    @apply mb-0;
+  }
+  & a {
+    @apply text-primary underline decoration-accent underline-offset-[3px] hover:text-rust-deep;
+  }
+  & em {
+    @apply italic;
   }
 }
