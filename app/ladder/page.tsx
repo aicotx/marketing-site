@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { FigureCard } from "@/components/figures/figure-card";
 import { Heatmap } from "@/components/figures/heatmap";
+import { LadderRail } from "@/components/ladder-rail";
 import { Shell } from "@/components/layout/shell";
 import { Band } from "@/components/sections/band";
 import { PageHead, PageLede } from "@/components/sections/page-head";
@@ -16,12 +17,12 @@ export const metadata = pageMetadata({
 });
 
 const levels = [
-  { id: "l0", code: "L0", name: "Shadow AI", short: "Shadow AI" },
-  { id: "l1", code: "L1", name: "Sanctioned chat", short: "Sanctioned chat" },
-  { id: "l2", code: "L2", name: "Assisted workflows", short: "Assisted workflows" },
-  { id: "l3", code: "L3", name: "Standardized capability", short: "Standardized" },
-  { id: "l4", code: "L4", name: "Autonomous operations", short: "Autonomous ops" },
-  { id: "l5", code: "L5", name: "Orchestrated", short: "Orchestrated" },
+  { id: "l0", code: "L0", short: "Shadow AI" },
+  { id: "l1", code: "L1", short: "Sanctioned chat" },
+  { id: "l2", code: "L2", short: "Assisted workflows" },
+  { id: "l3", code: "L3", short: "Standardized" },
+  { id: "l4", code: "L4", short: "Autonomous ops" },
+  { id: "l5", code: "L5", short: "Orchestrated" },
 ];
 
 function Level({ id, code, title, epigraph, children }: { id?: string; code: string; title: string; epigraph?: string; children: React.ReactNode }) {
@@ -65,18 +66,7 @@ export default function LadderPage() {
       </PageHead>
 
       <Shell className="section-block grid grid-cols-[200px_1fr] items-start gap-[clamp(32px,5vw,88px)] max-[900px]:grid-cols-1">
-        <nav aria-label="Levels" className="sticky top-[104px] flex flex-col border-l border-border">
-          <span className="pb-3 pl-[18px] font-mono text-xs tracking-[-0.02em] text-muted-foreground uppercase">Levels</span>
-          {levels.map((l) => (
-            <a
-              key={l.id}
-              href={`#${l.id}`}
-              className="-ml-[1.5px] border-l-2 border-transparent py-[9px] pl-[18px] font-mono text-[13px] tracking-[-0.02em] text-muted-foreground no-underline transition-colors duration-150 hover:text-ink"
-            >
-              {l.code} · {l.short}
-            </a>
-          ))}
-        </nav>
+        <LadderRail levels={levels.map((l) => ({ id: l.id, label: `${l.code} · ${l.short}` }))} />
         <div>
           <Level id="l0" code="L0" title="Shadow AI" epigraph="“Some people use chatgpt.com. Nobody sanctioned it.”">
             <H3>You are here if</H3>

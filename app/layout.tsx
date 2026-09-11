@@ -3,6 +3,7 @@ import { Cinzel, DM_Mono, Instrument_Sans } from "next/font/google";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 import { TopBar } from "@/components/layout/top-bar";
+import { RevealObserver } from "@/components/reveal-observer";
 import { site } from "@/lib/site";
 import "./globals.css";
 
@@ -55,6 +56,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <SiteHeader />
         <main className="flex-1">{children}</main>
         <SiteFooter />
+        <RevealObserver />
       </body>
     </html>
   );

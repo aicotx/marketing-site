@@ -250,3 +250,16 @@
     color: var(--primary);
   }
 }
+
+/* scroll-in reveal; RevealObserver adds `.in` (see components/reveal-observer.tsx) */
+@media (prefers-reduced-motion: no-preference) {
+  .reveal {
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.25, 0.1, 0.25, 1);
+  }
+  .reveal.in {
+    opacity: 1;
+    transform: none;
+  }
+}

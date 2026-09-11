@@ -2,10 +2,10 @@ import Link from "next/link";
 import { Shell } from "@/components/layout/shell";
 import { cn } from "@/lib/utils";
 
-/** Numbered content section. Consecutive sections collapse their top padding. */
-export function Section({ className, children, ...props }: React.ComponentProps<"section">) {
+/** Numbered content section. Consecutive sections collapse their top padding; `reveal` fades it in on scroll. */
+export function Section({ reveal = true, className, children, ...props }: React.ComponentProps<"section"> & { reveal?: boolean }) {
   return (
-    <section className={cn("section-block", className)} {...props}>
+    <section className={cn("section-block", reveal && "reveal", className)} {...props}>
       <Shell>{children}</Shell>
     </section>
   );

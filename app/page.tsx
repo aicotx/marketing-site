@@ -100,7 +100,7 @@ export default function HomePage() {
         </Shell>
       </section>
 
-      <Shell className="pt-[clamp(48px,7vw,96px)]">
+      <Shell className="reveal pt-[clamp(48px,7vw,96px)]">
         <div className="grid grid-cols-2 gap-[clamp(24px,4vw,56px)] text-lede text-muted-foreground max-[820px]:grid-cols-1 [&_strong]:font-medium [&_strong]:text-ink">
           <p>
             A company that has barely sanctioned its first chatbot buys a story about autonomous agent swarms, tries to skip every step in between, and quietly writes the whole category off eighteen months later. The failure is rarely the technology. <strong>It is the jump.</strong>

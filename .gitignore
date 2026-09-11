@@ -42,3 +42,4 @@ next-env.d.ts
 
 # reference screenshots of the live site (plan step 0)
 /docs/reference/
+/docs/reference-next/
