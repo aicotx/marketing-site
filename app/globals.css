@@ -1,26 +1,101 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* ------------------------------------------------------------------
+   The AI Company of Texas — design tokens
+   Beige ground, grotesk type, mono kickers, hairline rules,
+   burnt-orange accent, espresso bands, pill buttons.
+   ------------------------------------------------------------------ */
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* shadcn semantic tokens */
+  --background: #fbf7ef;
+  --foreground: #3e352a;
+  --card: #fffdf7;
+  --card-foreground: #201812;
+  --popover: #fffdf7;
+  --popover-foreground: #201812;
+  --primary: #8f3d1f;
+  --primary-foreground: #ffffff;
+  --secondary: #2e1a10;
+  --secondary-foreground: #f7efe2;
+  --muted: #f4eddd;
+  --muted-foreground: #8b7f6b;
+  --accent: #efdacb;
+  --accent-foreground: #201812;
+  --destructive: #8f3d1f;
+  --border: #e6deca;
+  --input: #e6deca;
+  --ring: #8f3d1f;
+  --radius: 1rem;
+
+  /* brand extras with no shadcn slot */
+  --ink: #201812;
+  --rust-deep: #6f2d15;
+  --rust-bright: #b26243;
+  --gold: #b08a45;
+  --espresso-hover: #43281a;
+  --espresso-soft: #c9b49d;
+  --cream-deep: #eae0ca;
+  --band-rule: rgba(247, 239, 226, 0.18);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-ink: var(--ink);
+  --color-rust-deep: var(--rust-deep);
+  --color-rust-bright: var(--rust-bright);
+  --color-gold: var(--gold);
+  --color-espresso-hover: var(--espresso-hover);
+  --color-espresso-soft: var(--espresso-soft);
+  --color-cream-deep: var(--cream-deep);
+  --color-band-rule: var(--band-rule);
+
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.25);
+
+  /* fonts: variables are set by next/font in app/layout.tsx */
+  --font-sans: var(--font-instrument-sans), "Helvetica Neue", Arial, sans-serif;
+  --font-mono: var(--font-dm-mono), "SFMono-Regular", Consolas, monospace;
+  --font-seal: var(--font-cinzel), "Times New Roman", serif;
+
+  /* layout */
+  --container-shell: 1248px;
+  --container-rail: 1400px;
+  --spacing-gutter: clamp(20px, 4vw, 48px);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
   }
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  html {
+    @apply font-sans;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
 }
