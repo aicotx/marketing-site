@@ -1,30 +1,40 @@
-// Temporary token + typography smoke test; replaced by the real home page in plan step 5.
+// Temporary component smoke test; replaced by the real home page in plan step 5.
+import { Seal } from "@/components/brand/seal";
+import { FigureCard } from "@/components/figures/figure-card";
+import { Heatmap } from "@/components/figures/heatmap";
+import { Band } from "@/components/sections/band";
+import { PageHead, PageLede } from "@/components/sections/page-head";
+import { Section, SectionHead, SectionTitle } from "@/components/sections/section";
+import { Button } from "@/components/ui/button";
+
 export default function Home() {
   return (
-    <main className="max-w-shell mx-auto px-gutter py-16 flex-1">
-      <p className="kicker border-b border-border pb-3.5 mb-8" data-t="kicker">
-        Typography · <em>smoke test</em>
-      </p>
-      <h1 className="text-display max-w-[17ch]" data-t="display">Most AI initiatives die of teleportation.</h1>
-      <h1 className="text-headline max-w-[18ch] mt-8" data-t="headline">Three paragraphs beat a deck.</h1>
-      <h2 className="text-title max-w-[24ch] mt-8" data-t="title">A ladder with six rungs, sold one at a time.</h2>
-      <h2 className="text-band max-w-[18ch] mt-8" data-t="band">Where does your company sit?</h2>
-      <h2 className="text-subtitle mt-8" data-t="subtitle">L2 · Sanctioned tools</h2>
-      <h2 className="text-essay mt-8" data-t="essay">Why one rung at a time</h2>
-      <h3 className="text-entry font-medium mt-8" data-t="entry">Maturity audit</h3>
-      <p className="text-lede text-muted-foreground mt-8 max-w-[40ch]" data-t="lede">A company that has barely sanctioned its first chatbot buys a story about <strong className="font-medium">autonomous agent swarms</strong>.</p>
-      <p className="text-page-lede mt-8 max-w-[60ch]" data-t="page-lede">There is no form, no calendar link, and no qualification funnel.</p>
-      <div className="prose-site mt-8 max-w-[68ch]" data-t="prose">
-        <p>The failure is rarely the technology. <strong>It is the distance</strong> between where a company is and where the story says it should be. See <a href="#">the ladder</a>.</p>
-        <p>Second paragraph to check rhythm.</p>
-      </div>
-      <p className="label-caps mt-8" data-t="label">What to write</p>
-      <p className="font-mono text-[11.5px] tracking-[-0.02em] text-muted-foreground mt-8" data-t="fig-tag">audit deliverable · illustrative</p>
-      <p className="font-seal text-xl text-rust-deep mt-8">CINZEL SEAL TEXT · MMXXVI</p>
-      <div className="mt-8 flex gap-3">
-        <a className="rounded-full bg-secondary text-secondary-foreground px-8 py-3.5 text-[17px] font-medium leading-none hover:bg-espresso-hover" href="#">Get in touch</a>
-        <a className="rounded-full bg-primary text-primary-foreground px-6 py-2.5 text-[14.5px] font-medium hover:bg-rust-deep" href="#">Contact</a>
-      </div>
-    </main>
+    <>
+      <PageHead kicker={<>Contact · <em>a plain email</em></>} title="Three paragraphs beat a deck.">
+        <PageLede>There is no form, no calendar link, and no qualification funnel. A considered email, read by a person, answered by a person.</PageLede>
+        <div className="mt-8 flex gap-3">
+          <Button variant="dark" size="pill" nativeButton={false} render={<a href="#" data-t="btn-dark" />}>Get in touch</Button>
+        </div>
+      </PageHead>
+      <Section>
+        <SectionHead num="01" title="The Ladder" link={{ href: "/ladder/", label: "Read the full methodology →" }} />
+        <SectionTitle>Six levels. Every company is on one of them.</SectionTitle>
+        <div className="prose-site max-w-[68ch]">
+          <p>“AI transformation” is a category, not a plan. A maturity ladder converts it into a <strong>diagnosis and a prescription</strong>. See <a href="#">the ladder</a>.</p>
+        </div>
+      </Section>
+      <Section>
+        <SectionHead num="06" title="The firm" />
+        <div className="grid grid-cols-[minmax(0,1fr)_240px] items-center gap-[clamp(32px,5vw,88px)] max-[820px]:grid-cols-1">
+          <FigureCard title="Maturity heatmap" tag="audit deliverable · illustrative" note="Function × level. The prescription is always the next rung, never the top." className="max-w-[560px]">
+            <Heatmap />
+          </FigureCard>
+          <Seal className="block w-full max-[820px]:max-w-[200px]" />
+        </div>
+      </Section>
+      <Band kicker={<>Begin · <em>no cost</em></>} title="Find your level." cta={{ href: "mailto:hello@aicotx.com", label: "hello@aicotx.com" }}>
+        Write to us with a paragraph about how work actually gets done at your company today. We’ll reply with where we’d place you on the ladder and what one rung up would look like. That reply costs nothing.
+      </Band>
+    </>
   );
 }

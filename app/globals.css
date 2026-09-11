@@ -181,3 +181,25 @@
     @apply italic;
   }
 }
+
+/* ---------- layout helpers ---------- */
+
+/* content section; consecutive sections collapse their top padding */
+@utility section-block {
+  padding-block: clamp(56px, 8vw, 112px);
+  & + & {
+    padding-block-start: 0;
+  }
+}
+
+/* stroke/fill roles for the small inline-SVG diagrams (see components/figures/mini-fig.tsx) */
+@layer components {
+  .mini-fig svg { display: block; width: 100%; max-width: 200px; height: auto; }
+  .mini-fig .ln { fill: none; stroke: #d5c9b0; stroke-width: 1.25; }
+  .mini-fig .lnk { fill: none; stroke: var(--foreground); stroke-width: 1.25; }
+  .mini-fig .dash { fill: none; stroke: #d5c9b0; stroke-width: 1.25; stroke-dasharray: 3 4; }
+  .mini-fig .acc { fill: var(--primary); }
+  .mini-fig .acc-ln { fill: none; stroke: var(--primary); stroke-width: 1.5; }
+  .mini-fig .dot { fill: #d5c9b0; }
+  .mini-fig text { font-family: var(--font-mono); font-size: 9px; fill: var(--muted-foreground); letter-spacing: 0.04em; }
+}

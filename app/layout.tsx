@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import { Cinzel, DM_Mono, Instrument_Sans } from "next/font/google";
+import { SiteFooter } from "@/components/layout/site-footer";
+import { SiteHeader } from "@/components/layout/site-header";
+import { TopBar } from "@/components/layout/top-bar";
 import "./globals.css";
 
 const instrumentSans = Instrument_Sans({
@@ -32,7 +35,12 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
       className={`${instrumentSans.variable} ${dmMono.variable} ${cinzel.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="flex min-h-full flex-col">
+        <TopBar />
+        <SiteHeader />
+        <main className="flex-1">{children}</main>
+        <SiteFooter />
+      </body>
     </html>
   );
 }
