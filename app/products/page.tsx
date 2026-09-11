@@ -2,6 +2,7 @@ import { ClearanceConsole } from "@/components/figures/diagrams";
 import { FigureCard } from "@/components/figures/figure-card";
 import { MiniFig } from "@/components/figures/mini-fig";
 import { Band } from "@/components/sections/band";
+import { Columns } from "@/components/sections/columns";
 import { PageHead, PageLede } from "@/components/sections/page-head";
 import { Section, SectionHead, SectionTitle } from "@/components/sections/section";
 import { pageMetadata, site } from "@/lib/site";
@@ -26,7 +27,7 @@ export default function ProductsPage() {
         <SectionHead num="01" title="Clearance" />
         <SectionTitle>Retrieval that respects your permissions.</SectionTitle>
 
-        <div className="grid grid-cols-[minmax(0,1fr)_minmax(0,1fr)] items-start gap-[clamp(28px,4.5vw,72px)] max-[860px]:grid-cols-1">
+        <Columns>
           <div className="prose-site max-w-[68ch]">
             <p>
               Every company that connects an AI assistant to its document stores discovers the same uncomfortable fact: the assistant does not inherit the permissions. Retrieval systems work by copying documents — SharePoint sites, shared drives, knowledge bases — into a search index, and the index is shared. Ask it the right question and it will quote the compensation spreadsheet to an engineer, or the reorg draft to the people it concerns, even though neither could open the original. The access control your IT department spent years maintaining simply does not make the trip.
@@ -49,7 +50,7 @@ export default function ProductsPage() {
               </MiniFig>
             </FigureCard>
           </div>
-        </div>
+        </Columns>
 
         <div className="mt-[clamp(28px,4vw,48px)]">
           <p className="label-caps mb-3">What it does</p>

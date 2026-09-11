@@ -7,6 +7,14 @@ export const site = {
     "An applied-AI consultancy. We place your company on a six-level AI maturity ladder and sell exactly one rung of climb at a time — scoped, priced, and proven in your environment.",
 } as const;
 
+/** Primary navigation, in order. The header drops `hideOnSmall` entries on narrow screens; the footer appends Contact. */
+export const nav = [
+  { href: "/ladder/", label: "The Ladder" },
+  { href: "/services/", label: "Services" },
+  { href: "/products/", label: "Products" },
+  { href: "/approach/", label: "Approach", hideOnSmall: true },
+] as const;
+
 import type { Metadata } from "next";
 
 /** Per-page metadata. openGraph is replaced wholesale by page exports, so every page sets it fully here. */

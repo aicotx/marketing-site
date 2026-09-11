@@ -5,7 +5,7 @@ import { LadderRail } from "@/components/ladder-rail";
 import { Shell } from "@/components/layout/shell";
 import { Band } from "@/components/sections/band";
 import { PageHead, PageLede } from "@/components/sections/page-head";
-import { pageMetadata, site } from "@/lib/site";
+import { pageMetadata } from "@/lib/site";
 
 export const metadata = pageMetadata({
   title: "The Ladder",
@@ -29,7 +29,7 @@ function Level({ id, code, title, epigraph, children }: { id?: string; code: str
   return (
     <article
       id={id}
-      className="scroll-mt-24 border-t border-border py-[clamp(36px,5vw,64px)] first:border-t-0 first:pt-0 [&_a]:text-primary [&_a]:underline-offset-[3px] [&_p]:mb-[1.1em] [&_p]:max-w-[66ch] [&_p]:text-foreground [&_p:last-child]:mb-0"
+      className="prose-entry scroll-mt-24 border-t border-border py-[clamp(36px,5vw,64px)] first:border-t-0 first:pt-0"
     >
       <div className="mb-2 flex items-baseline gap-4">
         <span className="font-mono text-base tracking-[-0.02em] text-primary">{code}</span>
@@ -42,7 +42,7 @@ function Level({ id, code, title, epigraph, children }: { id?: string; code: str
 }
 
 function H3({ children }: { children: React.ReactNode }) {
-  return <h3 className="mt-[26px] mb-2.5 font-mono text-[12.5px] font-normal tracking-[0.04em] text-muted-foreground uppercase">{children}</h3>;
+  return <h3 className="mt-[26px] mb-2.5 font-mono text-meta text-muted-foreground uppercase">{children}</h3>;
 }
 
 export default function LadderPage() {
@@ -65,7 +65,7 @@ export default function LadderPage() {
         </FigureCard>
       </PageHead>
 
-      <Shell className="section-block grid grid-cols-[200px_1fr] items-start gap-[clamp(32px,5vw,88px)] max-[900px]:grid-cols-1">
+      <Shell className="section-block grid grid-cols-[200px_1fr] items-start gap-[clamp(32px,5vw,88px)] max-lg:grid-cols-1">
         <LadderRail levels={levels.map((l) => ({ id: l.id, label: `${l.code} · ${l.short}` }))} />
         <div>
           <Level id="l0" code="L0" title="Shadow AI" epigraph="“Some people use chatgpt.com. Nobody sanctioned it.”">
@@ -134,7 +134,7 @@ export default function LadderPage() {
         </div>
       </Shell>
 
-      <Band kicker={<>Begin · <em>no cost</em></>} title="Where would we place you?" cta={{ href: `mailto:${site.email}`, label: site.email }}>
+      <Band title="Where would we place you?">
         Write us a paragraph about how work gets done at your company today. We’ll reply with where we’d put you on the ladder, function by function, and what one rung up would look like.
       </Band>
     </>

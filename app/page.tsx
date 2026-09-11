@@ -1,11 +1,11 @@
 import Link from "next/link";
-import { Seal } from "@/components/brand/seal";
 import { AgentGates, AuditGrid, MarketplaceTree, PilotBars } from "@/components/figures/diagrams";
 import { FigureCard } from "@/components/figures/figure-card";
 import { Heatmap } from "@/components/figures/heatmap";
-import { MiniFig } from "@/components/figures/mini-fig";
 import { Shell } from "@/components/layout/shell";
 import { Band } from "@/components/sections/band";
+import { CatalogEntry } from "@/components/sections/catalog-entry";
+import { Columns } from "@/components/sections/columns";
 import { Kicker } from "@/components/sections/kicker";
 import { Section, SectionHead, SectionTitle } from "@/components/sections/section";
 import { Button } from "@/components/ui/button";
@@ -64,11 +64,11 @@ function LevelRow({ href, code, name, desc }: { href: string; code: string; name
   return (
     <Link
       href={href}
-      className="grid grid-cols-[64px_260px_1fr] items-baseline gap-5 border-b border-border py-5 no-underline transition-colors duration-150 hover:bg-muted max-[760px]:grid-cols-[48px_1fr]"
+      className="grid grid-cols-[64px_260px_1fr] items-baseline gap-5 border-b border-border py-5 no-underline transition-colors duration-150 hover:bg-muted max-md:grid-cols-[48px_1fr]"
     >
       <span className="font-mono text-sm tracking-[-0.02em] text-primary">{code}</span>
       <span className="text-xl font-medium tracking-[-0.02em] text-ink">{name}</span>
-      <span className="text-base text-muted-foreground max-[760px]:col-start-2">{desc}</span>
+      <span className="text-base text-muted-foreground max-md:col-start-2">{desc}</span>
     </Link>
   );
 }
@@ -101,14 +101,14 @@ export default function HomePage() {
       </section>
 
       <Shell className="reveal pt-[clamp(48px,7vw,96px)]">
-        <div className="grid grid-cols-2 gap-[clamp(24px,4vw,56px)] text-lede text-muted-foreground max-[820px]:grid-cols-1 [&_strong]:font-medium [&_strong]:text-ink">
+        <Columns className="text-lede text-muted-foreground [&_strong]:font-medium [&_strong]:text-ink">
           <p>
             A company that has barely sanctioned its first chatbot buys a story about autonomous agent swarms, tries to skip every step in between, and quietly writes the whole category off eighteen months later. The failure is rarely the technology. <strong>It is the jump.</strong>
           </p>
           <p>
             There is a ladder from <em>“a few people quietly use ChatGPT”</em> to <em>“processes that run themselves, supervised by exception.”</em> We place your company on it, function by function — and we sell exactly <strong>one rung of climb at a time</strong>: scoped, priced, and proven working in your environment before anyone talks about the next.
           </p>
-        </div>
+        </Columns>
       </Shell>
 
       <Section>
@@ -133,25 +133,11 @@ export default function HomePage() {
         <div className="prose-site max-w-[68ch]">
           <p>Every engagement ends with your company measurably one level up — and with the evidence in hand. The audit places you; each climb is a fixed, named piece of work; and nothing is proposed until the rung below it is real.</p>
         </div>
-        <div className="mt-[clamp(28px,4vw,48px)] border-t border-border">
-          {engagements.map((e) => (
-            <div
-              key={e.href}
-              className="grid grid-cols-[150px_1fr] gap-[clamp(20px,4vw,64px)] border-b border-border py-[clamp(24px,3.5vw,44px)] max-[700px]:grid-cols-1 max-[700px]:gap-2 min-[960px]:grid-cols-[150px_minmax(0,1fr)_200px]"
-            >
-              <div className="pt-1.5 font-mono text-sm tracking-[-0.02em] whitespace-nowrap text-primary">
-                {e.climb}
-                {e.flag && <span className="mt-1.5 block text-xs text-muted-foreground max-[700px]:ml-2.5 max-[700px]:inline">{e.flag}</span>}
-              </div>
-              <div>
-                <h3 className="mb-2.5 text-entry font-medium">
-                  <Link href={e.href} className="no-underline hover:text-primary">{e.title}</Link>
-                </h3>
-                <p className="mb-2 max-w-[62ch] text-foreground">{e.body}</p>
-                <p className="mt-3 mb-2 font-mono text-[13px] tracking-[-0.02em] text-muted-foreground">{e.shape}</p>
-              </div>
-              <MiniFig className="hidden self-center justify-self-end min-[960px]:block">{e.figure}</MiniFig>
-            </div>
+        <div className="mt-[clamp(28px,4vw,48px)] border-y border-border">
+          {engagements.map(({ body, ...e }) => (
+            <CatalogEntry key={e.href} heading="h3" {...e}>
+              <p>{body}</p>
+            </CatalogEntry>
           ))}
         </div>
       </Section>
@@ -159,7 +145,7 @@ export default function HomePage() {
       <Section>
         <SectionHead num="03" title="Fractional" link={{ href: "/services/#fractional", label: "The engagement →" }} />
         <SectionTitle>A senior AI engineer on your team — a few days a month.</SectionTitle>
-        <div className="grid grid-cols-[minmax(0,1fr)_minmax(0,1fr)] items-start gap-[clamp(28px,4.5vw,72px)] max-[860px]:grid-cols-1">
+        <Columns>
           <div className="prose-site max-w-[68ch]">
             <p>Most companies on the lower rungs of the ladder don’t have forty hours a week of AI work. They have a steady stream of it — a workflow to build, a vendor pitch to judge, an agent misbehaving, a team that keeps asking the same good questions — and the engineers capable of handling all of that are nearly impossible to hire, because everyone else is trying to hire them too.</p>
             <p>A <strong>fractional AI engineer</strong> is the answer to both problems: a fixed number of days each month, embedded with your team, in your environment, under your priorities. The scope rides the same roadmap the audit produced — nothing freelance about it — and it is how the ladder keeps moving <em>between</em> engagements rather than only during them.</p>
@@ -173,9 +159,9 @@ export default function HomePage() {
               <li>Supervising deployed agents and tightening their trust gates</li>
               <li>Office hours: your team’s questions, answered by someone who ships</li>
             </ul>
-            <p className="mt-4 font-mono text-[12.5px] text-muted-foreground">Fixed days per month · three-month minimum · pairs with any level</p>
+            <p className="mt-4 font-mono text-meta text-muted-foreground">Fixed days per month · three-month minimum · pairs with any level</p>
           </div>
-        </div>
+        </Columns>
       </Section>
 
       <Section id="products">
@@ -191,7 +177,7 @@ export default function HomePage() {
 
       <Section>
         <SectionHead num="05" title="How we work" link={{ href: "/approach/", label: "Our approach →" }} />
-        <div className="grid grid-cols-2 gap-x-[clamp(32px,4vw,56px)] gap-y-[clamp(32px,5vw,56px)] max-[700px]:grid-cols-1 max-[700px]:gap-7 min-[1000px]:grid-cols-4">
+        <div className="grid grid-cols-2 gap-x-[clamp(32px,4vw,56px)] gap-y-[clamp(32px,5vw,56px)] max-md:grid-cols-1 max-md:gap-7 lg:grid-cols-4">
           {principles.map((p) => (
             <div key={p.title}>
               <h3 className="mb-2.5 border-t border-border pt-4 text-[17.5px] font-semibold tracking-[-0.02em]">{p.title}</h3>
@@ -203,18 +189,17 @@ export default function HomePage() {
 
       <Section>
         <SectionHead num="06" title="The firm" />
-        <div className="grid grid-cols-[minmax(0,1fr)_240px] items-center gap-[clamp(32px,5vw,88px)] max-[820px]:grid-cols-1">
+        <Columns layout="seal">
           <div className="prose-site max-w-[68ch]">
             <p>The AI Company of Texas is an applied-AI consultancy organized as a Texas limited liability company. We are engineers — the kind who would rather show you a working system than a slide about one. The firm operates the same agentic infrastructure it deploys for clients, at the top of its own ladder, which is both our proof of capability and our standing rebuke to vaporware.</p>
             <p>
               We keep the client roster short on purpose. Fewer engagements, taken seriously, priced on the value of the outcome rather than the hours consumed. If that sounds like how you prefer to buy, the fastest way to find out whether we can help is a plain email: <a href={`mailto:${site.email}`}>{site.email}</a>.
             </p>
           </div>
-          <Seal className="block w-full max-[820px]:max-w-[200px]" />
-        </div>
+        </Columns>
       </Section>
 
-      <Band kicker={<>Begin · <em>no cost</em></>} title="Find your level." cta={{ href: `mailto:${site.email}`, label: site.email }}>
+      <Band title="Find your level.">
         Write to us with a paragraph about how work actually gets done at your company today — what tools people reach for, where the hours go, what everyone quietly complains about. We’ll reply with where we’d place you on the ladder and what one rung up would look like. That reply costs nothing.
       </Band>
     </>

@@ -21,7 +21,7 @@ export function Heatmap({ rows = defaultHeatmapRows }: { rows?: { label: string;
     >
       <span />
       {LEVELS.map((l) => (
-        <span key={l} className="pb-0.5 text-center font-mono text-[10.5px] text-muted-foreground">{l}</span>
+        <span key={l} className="pb-0.5 text-center font-mono text-xs text-muted-foreground">{l}</span>
       ))}
       {rows.map((r) => (
         <Row key={r.label} {...r} />

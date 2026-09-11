@@ -1,14 +1,9 @@
 import Link from "next/link";
 import { StarMark } from "@/components/brand/star-mark";
 import { Shell } from "@/components/layout/shell";
+import { nav } from "@/lib/site";
 
-const links = [
-  { href: "/ladder/", label: "The Ladder" },
-  { href: "/services/", label: "Services" },
-  { href: "/products/", label: "Products" },
-  { href: "/approach/", label: "Approach" },
-  { href: "/contact/", label: "Contact" },
-];
+const links = [...nav, { href: "/contact/", label: "Contact" }];
 
 export function SiteFooter() {
   return (
@@ -32,7 +27,7 @@ export function SiteFooter() {
             </a>
           </div>
         </div>
-        <div className="mt-12 flex flex-wrap justify-between gap-x-8 gap-y-3 border-t border-border pt-5 font-mono text-[12.5px] tracking-[-0.02em] text-muted-foreground">
+        <div className="mt-12 flex flex-wrap justify-between gap-x-8 gap-y-3 border-t border-border pt-5 font-mono text-meta text-muted-foreground">
           <span>© {new Date().getFullYear()} AICOTX LLC</span>
           <span>Texas, USA</span>
         </div>

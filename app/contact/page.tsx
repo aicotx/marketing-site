@@ -1,6 +1,6 @@
 import Link from "next/link";
-import { Seal } from "@/components/brand/seal";
 import { Shell } from "@/components/layout/shell";
+import { Columns } from "@/components/sections/columns";
 import { PageHead, PageLede } from "@/components/sections/page-head";
 import { pageMetadata, site } from "@/lib/site";
 
@@ -15,7 +15,7 @@ export default function ContactPage() {
   return (
     <>
       <PageHead kicker={<>Contact · <em>a plain email</em></>}>
-        <div className="grid grid-cols-[minmax(0,1fr)_240px] items-center gap-[clamp(32px,5vw,88px)] max-[820px]:grid-cols-1">
+        <Columns layout="seal">
           <div>
             <h1 className="max-w-[18ch] text-headline">Three paragraphs beat a deck.</h1>
             <PageLede>
@@ -28,12 +28,11 @@ export default function ContactPage() {
               {site.email}
             </a>
           </div>
-          <Seal className="block w-full max-[820px]:max-w-[200px]" />
-        </div>
+        </Columns>
       </PageHead>
 
       <Shell className="pb-[clamp(56px,8vw,110px)]">
-        <div className="mt-[clamp(32px,5vw,56px)] grid grid-cols-2 gap-[clamp(32px,5vw,80px)] max-[760px]:grid-cols-1">
+        <Columns className="mt-[clamp(32px,5vw,56px)]">
           <div className="prose-site">
             <h3 className="label-caps mb-3">What to write</h3>
             <p>
@@ -46,7 +45,7 @@ export default function ContactPage() {
               A reply within two business days, from an engineer, with a real opinion in it — where we’d place you, what one rung up would look like, and whether it’s worth either of our time. If we’re not the right firm for the problem, we’ll say that too.
             </p>
           </div>
-        </div>
+        </Columns>
       </Shell>
     </>
   );

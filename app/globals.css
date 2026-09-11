@@ -121,6 +121,9 @@
   --text-label: 11.5px;
   --text-label--line-height: 1.55;
   --text-label--letter-spacing: 0.16em;
+  --text-meta: 12.5px;
+  --text-meta--line-height: 1.55;
+  --text-meta--letter-spacing: -0.02em;
 
   /* fonts: variables are set by next/font in app/layout.tsx */
   --font-sans: var(--font-instrument-sans), "Helvetica Neue", Arial, sans-serif;
@@ -190,6 +193,22 @@
   }
 }
 
+/* body of a catalog or ladder entry: base-size paragraphs on a tighter rhythm */
+@utility prose-entry {
+  & :where(p) {
+    @apply mb-[1.1em] max-w-[64ch] text-foreground;
+  }
+  & :where(p:last-child) {
+    @apply mb-0;
+  }
+  & a {
+    @apply text-primary underline decoration-accent underline-offset-[3px] hover:text-rust-deep;
+  }
+  & strong {
+    @apply font-medium;
+  }
+}
+
 /* ---------- layout helpers ---------- */
 
 /* content section; consecutive sections collapse their top padding */
@@ -198,6 +217,12 @@
   & + & {
     padding-block-start: 0;
   }
+}
+
+/* faint dot grid over the espresso surfaces (top bar, band) */
+@utility bg-dots {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.12) 1px, transparent 1px);
+  background-size: 22px 22px;
 }
 
 /* stroke/fill roles for the small inline-SVG diagrams (see components/figures/mini-fig.tsx) */
@@ -214,7 +239,7 @@
 
 /* full-height vertical rails framing the content well */
 @layer base {
-  @media (min-width: 1120px) {
+  @media (width >= theme(--breakpoint-xl)) {
     body::before,
     body::after {
       content: "";

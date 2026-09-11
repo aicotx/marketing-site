@@ -6,14 +6,8 @@ import { useEffect, useState } from "react";
 import { StarMark } from "@/components/brand/star-mark";
 import { Shell } from "@/components/layout/shell";
 import { Button } from "@/components/ui/button";
+import { nav } from "@/lib/site";
 import { cn } from "@/lib/utils";
-
-const links = [
-  { href: "/ladder/", label: "The Ladder" },
-  { href: "/services/", label: "Services" },
-  { href: "/products/", label: "Products" },
-  { href: "/approach/", label: "Approach", hideOnSmall: true },
-];
 
 export function SiteHeader() {
   const pathname = usePathname();
@@ -40,26 +34,25 @@ export function SiteHeader() {
           <StarMark className="size-10 flex-none" />
           <span className="sr-only">The AI Company of Texas</span>
         </Link>
-        <nav className="flex items-center gap-[clamp(14px,2.4vw,32px)] max-[720px]:gap-3.5">
-          {links.map((l) => (
+        <nav className="flex items-center gap-[clamp(14px,2.4vw,32px)] max-md:gap-3.5">
+          {nav.map((l) => (
             <Link
               key={l.href}
               href={l.href}
               aria-current={current(l.href)}
               className={cn(
-                "whitespace-nowrap py-1 text-[14.5px] text-foreground no-underline transition-colors duration-150 hover:text-ink aria-[current=page]:text-primary max-[720px]:text-[13.5px]",
-                l.hideOnSmall && "max-[720px]:hidden",
+                "whitespace-nowrap py-1 text-[14.5px] text-foreground no-underline transition-colors duration-150 hover:text-ink aria-[current=page]:text-primary max-md:text-[13.5px]",
+                "hideOnSmall" in l && "max-md:hidden",
               )}
             >
               {l.label}
             </Link>
           ))}
           <Button
-            variant="rust"
             size="pill-sm"
             nativeButton={false}
             render={<Link href="/contact/" aria-current={current("/contact/")} />}
-            className="max-[720px]:px-[18px] max-[720px]:py-2"
+            className="max-md:px-[18px] max-md:py-2"
           >
             Contact
           </Button>

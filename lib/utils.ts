@@ -10,7 +10,7 @@ export const cn = createCn({
         {
           text: [
             "display", "headline", "band", "title", "subtitle", "essay", "entry",
-            "lede", "page-lede", "band-body", "body-lg", "kicker", "label",
+            "lede", "page-lede", "band-body", "body-lg", "kicker", "label", "meta",
           ],
         },
       ],

@@ -7,7 +7,7 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-primary text-primary-foreground hover:bg-primary/80",
+        default: "bg-primary text-primary-foreground hover:bg-rust-deep aria-[current=page]:bg-rust-deep",
         outline:
           "border-border bg-background hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:border-input dark:bg-input/30 dark:hover:bg-input/50",
         secondary:
@@ -19,7 +19,6 @@ const buttonVariants = cva(
         link: "text-primary underline-offset-4 hover:underline",
         /* site pills — pair with a pill-* size */
         dark: "bg-secondary text-secondary-foreground hover:bg-espresso-hover",
-        rust: "bg-primary text-primary-foreground hover:bg-rust-deep aria-[current=page]:bg-rust-deep",
         light: "bg-secondary-foreground text-secondary hover:bg-primary hover:text-white",
       },
       size: {
@@ -37,7 +36,6 @@ const buttonVariants = cva(
         /* site pills: 64px radius, no border, leading-none so height = padding + font */
         pill: "h-auto rounded-full border-0 px-8 py-3.5 text-[17px] leading-none",
         "pill-sm": "h-auto rounded-full border-0 px-6 py-2.5 text-[14.5px] leading-[1.55]",
-        "pill-lg": "h-auto rounded-full border-0 px-[34px] py-[15px] text-[17px] leading-none",
       },
     },
     defaultVariants: {

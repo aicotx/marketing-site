@@ -4,7 +4,7 @@ import { MiniFig } from "@/components/figures/mini-fig";
 import { Shell } from "@/components/layout/shell";
 import { Band } from "@/components/sections/band";
 import { PageHead, PageLede } from "@/components/sections/page-head";
-import { pageMetadata, site } from "@/lib/site";
+import { pageMetadata } from "@/lib/site";
 
 export const metadata = pageMetadata({
   title: "Approach",
@@ -30,7 +30,7 @@ export default function ApproachPage() {
       </PageHead>
 
       <Shell className="section-block">
-        <div className="prose-site max-w-[720px] [&_p]:mb-[1.3em]">
+        <div className="prose-site max-w-[720px]">
           <H2>We sell one rung at a time.</H2>
           <p>
             Everything we do hangs off the <Link href="/ladder/">maturity ladder</Link>. An engagement moves your company from the level it is actually at to the level directly above — never further. A Level-1 company asking for autonomous agent swarms gets told no, and told why, with the ladder as the explanation.
@@ -76,7 +76,7 @@ export default function ApproachPage() {
         </div>
       </Shell>
 
-      <Band kicker={<>Begin · <em>no cost</em></>} title="Sound like your kind of firm?" cta={{ href: `mailto:${site.email}`, label: site.email }}>
+      <Band title="Sound like your kind of firm?">
         Write to us with a paragraph about how work gets done at your company today. We’ll reply with where we’d place you on the ladder and what one rung up would look like.
       </Band>
     </>
