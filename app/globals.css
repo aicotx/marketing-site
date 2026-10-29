@@ -1,0 +1,290 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* ------------------------------------------------------------------
+   The AI Company of Texas — design tokens
+   Beige ground, grotesk type, mono kickers, hairline rules,
+   burnt-orange accent, espresso bands, pill buttons.
+   ------------------------------------------------------------------ */
+
+:root {
+  /* shadcn semantic tokens */
+  --background: #fbf7ef;
+  --foreground: #3e352a;
+  --card: #fffdf7;
+  --card-foreground: #201812;
+  --popover: #fffdf7;
+  --popover-foreground: #201812;
+  --primary: #8f3d1f;
+  --primary-foreground: #ffffff;
+  --secondary: #2e1a10;
+  --secondary-foreground: #f7efe2;
+  --muted: #f4eddd;
+  --muted-foreground: #8b7f6b;
+  --accent: #efdacb;
+  --accent-foreground: #201812;
+  --destructive: #8f3d1f;
+  --border: #e6deca;
+  --input: #e6deca;
+  --ring: #8f3d1f;
+  --radius: 1rem;
+
+  /* brand extras with no shadcn slot */
+  --ink: #201812;
+  --rust-deep: #6f2d15;
+  --rust-bright: #b26243;
+  --gold: #b08a45;
+  --espresso-hover: #43281a;
+  --espresso-soft: #c9b49d;
+  --cream-deep: #eae0ca;
+  --band-rule: rgba(247, 239, 226, 0.18);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-ink: var(--ink);
+  --color-rust-deep: var(--rust-deep);
+  --color-rust-bright: var(--rust-bright);
+  --color-gold: var(--gold);
+  --color-espresso-hover: var(--espresso-hover);
+  --color-espresso-soft: var(--espresso-soft);
+  --color-cream-deep: var(--cream-deep);
+  --color-band-rule: var(--band-rule);
+
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.25);
+
+  /* Tailwind's named sizes ship their own line-heights; the site uses one rhythm */
+  --text-xs--line-height: 1.55;
+  --text-sm--line-height: 1.55;
+  --text-base--line-height: 1.55;
+  --text-lg--line-height: 1.55;
+  --text-xl--line-height: 1.55;
+
+  /* type scale: size / line-height / letter-spacing per role */
+  --text-display: clamp(42px, 6.4vw, 84px);
+  --text-display--line-height: 0.98;
+  --text-display--letter-spacing: -0.043em;
+  --text-headline: clamp(40px, 5.8vw, 72px);
+  --text-headline--line-height: 1;
+  --text-headline--letter-spacing: -0.04em;
+  --text-band: clamp(36px, 4.8vw, 64px);
+  --text-band--line-height: 1;
+  --text-band--letter-spacing: -0.04em;
+  --text-title: clamp(30px, 3.6vw, 48px);
+  --text-title--line-height: 1.04;
+  --text-title--letter-spacing: -0.035em;
+  --text-subtitle: clamp(28px, 3.2vw, 40px);
+  --text-subtitle--line-height: 1.55;
+  --text-subtitle--letter-spacing: -0.035em;
+  --text-essay: clamp(25px, 2.8vw, 34px);
+  --text-essay--line-height: 1.55;
+  --text-essay--letter-spacing: -0.03em;
+  --text-entry: clamp(22px, 2.2vw, 27px);
+  --text-entry--line-height: 1.15;
+  --text-entry--letter-spacing: -0.03em;
+  --text-lede: clamp(18px, 1.7vw, 22px);
+  --text-lede--line-height: 1.45;
+  --text-lede--letter-spacing: -0.02em;
+  --text-page-lede: clamp(16.5px, 1.5vw, 19px);
+  --text-page-lede--line-height: 1.55;
+  --text-band-body: clamp(16px, 1.4vw, 18.5px);
+  --text-band-body--line-height: 1.55;
+  --text-body-lg: clamp(16px, 1.3vw, 18px);
+  --text-body-lg--line-height: 1.55;
+  --text-kicker: 15px;
+  --text-kicker--line-height: 1.55;
+  --text-kicker--letter-spacing: -0.04em;
+  --text-label: 11.5px;
+  --text-label--line-height: 1.55;
+  --text-label--letter-spacing: 0.16em;
+  --text-meta: 12.5px;
+  --text-meta--line-height: 1.55;
+  --text-meta--letter-spacing: -0.02em;
+
+  /* fonts: variables are set by next/font in app/layout.tsx */
+  --font-sans: var(--font-instrument-sans), "Helvetica Neue", Arial, sans-serif;
+  --font-mono: var(--font-dm-mono), "SFMono-Regular", Consolas, monospace;
+  --font-seal: var(--font-cinzel), "Times New Roman", serif;
+
+  /* layout */
+  --container-shell: 1248px;
+  --container-rail: 1400px;
+  --spacing-gutter: clamp(20px, 4vw, 48px);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    @apply font-sans scroll-smooth motion-reduce:scroll-auto;
+  }
+  body {
+    @apply bg-background text-foreground text-base leading-[1.55] antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  ::selection {
+    @apply bg-primary text-white;
+  }
+  h1,
+  h2,
+  h3 {
+    @apply font-normal text-ink text-balance;
+  }
+  strong {
+    @apply text-ink font-semibold;
+  }
+}
+
+/* ---------- named text roles ---------- */
+
+/* mono eyebrow above a section; <em> inside is the rust highlight */
+@utility kicker {
+  @apply font-mono text-kicker text-muted-foreground;
+  & em {
+    @apply not-italic text-primary;
+  }
+}
+
+/* small uppercase sans label (list headings, column heads) */
+@utility label-caps {
+  @apply text-label font-semibold uppercase text-rust-deep;
+}
+
+/* running copy: paragraph rhythm, links, emphasis */
+@utility prose-site {
+  /* size lives on the paragraphs so a 68ch max-width on the wrapper measures at 16px */
+  @apply text-foreground;
+  & :where(p) {
+    @apply text-body-lg mb-[1.35em];
+  }
+  & :where(p:last-child) {
+    @apply mb-0;
+  }
+  & a {
+    @apply text-primary underline decoration-accent underline-offset-[3px] hover:text-rust-deep;
+  }
+  & em {
+    @apply italic;
+  }
+}
+
+/* body of a catalog or ladder entry: base-size paragraphs on a tighter rhythm */
+@utility prose-entry {
+  & :where(p) {
+    @apply mb-[1.1em] max-w-[64ch] text-foreground;
+  }
+  & :where(p:last-child) {
+    @apply mb-0;
+  }
+  & a {
+    @apply text-primary underline decoration-accent underline-offset-[3px] hover:text-rust-deep;
+  }
+  & strong {
+    @apply font-medium;
+  }
+}
+
+/* ---------- layout helpers ---------- */
+
+/* content section; consecutive sections collapse their top padding */
+@utility section-block {
+  padding-block: clamp(56px, 8vw, 112px);
+  & + & {
+    padding-block-start: 0;
+  }
+}
+
+/* faint dot grid over the espresso surfaces (top bar, band) */
+@utility bg-dots {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.12) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+
+/* stroke/fill roles for the small inline-SVG diagrams (see components/figures/mini-fig.tsx) */
+@layer components {
+  .mini-fig svg { display: block; width: 100%; max-width: 200px; height: auto; }
+  .mini-fig .ln { fill: none; stroke: #d5c9b0; stroke-width: 1.25; }
+  .mini-fig .lnk { fill: none; stroke: var(--foreground); stroke-width: 1.25; }
+  .mini-fig .dash { fill: none; stroke: #d5c9b0; stroke-width: 1.25; stroke-dasharray: 3 4; }
+  .mini-fig .acc { fill: var(--primary); }
+  .mini-fig .acc-ln { fill: none; stroke: var(--primary); stroke-width: 1.5; }
+  .mini-fig .dot { fill: #d5c9b0; }
+  .mini-fig text { font-family: var(--font-mono); font-size: 9px; fill: var(--muted-foreground); letter-spacing: 0.04em; }
+}
+
+/* full-height vertical rails framing the content well */
+@layer base {
+  @media (width >= theme(--breakpoint-xl)) {
+    body::before,
+    body::after {
+      content: "";
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      background: var(--border);
+      z-index: 1;
+      pointer-events: none;
+    }
+    body::before { left: calc(50% - var(--container-rail) / 2); }
+    body::after  { right: calc(50% - var(--container-rail) / 2); }
+  }
+}
+
+/* hairline-ruled bullet list with an em-dash marker */
+@utility ruled-list {
+  list-style: none;
+  & > li {
+    position: relative;
+    padding: 12px 0 12px 28px;
+    border-bottom: 1px solid var(--border);
+    color: var(--foreground);
+  }
+  & > li:first-child {
+    border-top: 1px solid var(--border);
+  }
+  & > li::before {
+    content: "—";
+    position: absolute;
+    left: 0;
+    color: var(--primary);
+  }
+}
+
+/* scroll-in reveal; RevealObserver adds `.in` (see components/reveal-observer.tsx) */
+@media (prefers-reduced-motion: no-preference) {
+  .reveal {
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.25, 0.1, 0.25, 1);
+  }
+  .reveal.in {
+    opacity: 1;
+    transform: none;
+  }
+}
