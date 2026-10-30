@@ -12,7 +12,7 @@ const smallLinkClass =
   'text-ink no-underline transition-opacity duration-150 hover:opacity-60';
 
 /**
- * Site footer, modelled on america.gov's: the name set edge to edge, a
+ * Site footer, a
  * three-part credit row (the seal, the motto between two pieces of rope, the
  * city), then the page links and small print below a rule.
  */

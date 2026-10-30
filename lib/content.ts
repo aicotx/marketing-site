@@ -222,11 +222,11 @@ export const founders: Founder[] = [
     image: '/assets/img/headshots/justin-rudi.jpg',
     linkedin: 'https://www.linkedin.com/in/justinrudi/',
   },
-  {
-    id: 'thatcher-thornberry',
-    name: 'Thatcher Thornberry',
-    role: 'Co-Founder, Principal Agent',
-    image: '/assets/img/headshots/thatcher-thornberry.jpg',
-    linkedin: 'https://www.linkedin.com/in/thatcher-thornberry-a7222a17b/',
-  },
+  // {
+  //   id: 'thatcher-thornberry',
+  //   name: 'Thatcher Thornberry',
+  //   role: 'Co-Founder, Principal Agent',
+  //   image: '/assets/img/headshots/thatcher-thornberry.jpg',
+  //   linkedin: 'https://www.linkedin.com/in/thatcher-thornberry-a7222a17b/',
+  // },
 ];

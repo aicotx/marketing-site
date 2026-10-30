@@ -50,7 +50,7 @@ export default function CompanyPage() {
       </PageHead>
 
       <Shell className="pb-[clamp(64px,9vw,136px)]">
-        <ul className="grid grid-cols-1 gap-6 md:grid-cols-3">
+        <ul className="grid grid-cols-1 gap-6 md:grid-cols-2">
           {founders.map((f) => (
             <li key={f.id} id={f.id} className="scroll-mt-28">
               {/* grayscale ties the mixed source photos to the monochrome palette */}
