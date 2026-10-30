@@ -1,11 +1,12 @@
-import { Shell } from "@/components/layout/shell";
-import { Kicker } from "@/components/sections/kicker";
-import { Button } from "@/components/ui/button";
-import { site } from "@/lib/site";
+import { ArrowRight } from 'lucide-react';
+import { Shell } from '@/components/layout/shell';
+import { Kicker } from '@/components/sections/kicker';
+import { Button } from '@/components/ui/button';
+import { site } from '@/lib/site';
 
-/** Espresso call-to-action band that closes every page. Defaults to the "no cost" kicker and a mailto CTA. */
+/** Ink call-to-action panel that closes every page. Defaults to the "no cost" kicker and a mailto CTA. */
 export function Band({
-  kicker = <>Begin · <em>no cost</em></>,
+  kicker = 'Begin · no cost',
   title,
   children,
   cta = { href: `mailto:${site.email}`, label: site.email },
@@ -16,14 +17,27 @@ export function Band({
   cta?: { href: string; label: React.ReactNode };
 }) {
   return (
-    <section className="relative overflow-hidden bg-secondary py-[clamp(64px,9vw,130px)] text-secondary-foreground before:pointer-events-none before:absolute before:inset-0 before:bg-dots before:content-['']">
-      <Shell>
-        <Kicker className="border-band-rule text-espresso-soft [&_em]:text-gold">{kicker}</Kicker>
-        <h2 className="max-w-[18ch] text-band text-secondary-foreground">{title}</h2>
-        <p className="mt-6 max-w-[56ch] text-band-body text-espresso-soft">{children}</p>
-        <Button variant="light" size="pill" nativeButton={false} render={<a href={cta.href} />} className="mt-9">
-          {cta.label}
-        </Button>
+    <section className="pb-[clamp(16px,2vw,24px)]">
+      <Shell className="max-sm:px-3">
+        <div className="surface-dark bg-glow relative overflow-hidden rounded-2xl px-[clamp(24px,6vw,96px)] py-[clamp(64px,9vw,128px)]">
+          <div className="relative grid grid-cols-[minmax(0,1fr)_auto] items-end gap-x-16 gap-y-10 max-lg:grid-cols-1">
+            <div>
+              <Kicker>{kicker}</Kicker>
+              <h2 className="max-w-[16ch] text-h2-band">{title}</h2>
+              <p className="mt-7 max-w-[56ch]">{children}</p>
+            </div>
+            <Button
+              variant="dark"
+              size="pill"
+              nativeButton={false}
+              render={<a href={cta.href} />}
+              className="justify-self-start"
+            >
+              {cta.label}
+              <ArrowRight />
+            </Button>
+          </div>
+        </div>
       </Shell>
     </section>
   );

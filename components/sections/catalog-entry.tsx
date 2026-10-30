@@ -1,10 +1,8 @@
-import Link from "next/link";
-import { MiniFig } from "@/components/figures/mini-fig";
+import Link from 'next/link';
+import { MiniFig } from '@/components/figures/mini-fig';
+import { Badge } from '@/components/ui/badge';
 
-/**
- * One engagement in the catalog: climb column, title and body, mono shape line, figure on wide screens.
- * Entries draw a top rule except the first; wrap a list in `border-y` to close it (see the home page).
- */
+/** One engagement in the catalog: a soft gray card with the climb, title and body, shape line, and its figure on wide screens. */
 export function CatalogEntry({
   id,
   climb,
@@ -13,7 +11,7 @@ export function CatalogEntry({
   href,
   shape,
   figure,
-  heading: Heading = "h2",
+  heading: Heading = 'h2',
   children,
 }: {
   id?: string;
@@ -23,26 +21,38 @@ export function CatalogEntry({
   href?: string;
   shape: string;
   figure: React.ReactNode;
-  heading?: "h2" | "h3";
+  heading?: 'h2' | 'h3';
   children: React.ReactNode;
 }) {
   return (
     <section
       id={id}
-      className="grid scroll-mt-24 grid-cols-[150px_1fr] gap-[clamp(20px,4vw,64px)] border-t border-border py-[clamp(24px,3.5vw,44px)] first:border-t-0 max-md:grid-cols-1 max-md:gap-2.5 lg:grid-cols-[150px_minmax(0,1fr)_220px]"
+      className="grid scroll-mt-28 grid-cols-1 gap-[clamp(28px,4vw,64px)] rounded-2xl bg-muted p-[clamp(24px,4vw,56px)] lg:grid-cols-[minmax(0,1fr)_300px]"
     >
-      <div className="pt-2 font-mono text-sm tracking-[-0.02em] whitespace-nowrap text-primary">
-        {climb}
-        {flag && <span className="mt-1.5 block text-meta text-muted-foreground max-md:ml-2.5 max-md:inline">{flag}</span>}
-      </div>
       <div>
-        <Heading className="mb-2.5 text-entry font-medium">
-          {href ? <Link href={href} className="no-underline hover:text-primary">{title}</Link> : title}
+        <div className="mb-5 flex flex-wrap items-center gap-2">
+          <Badge>{climb}</Badge>
+          {flag && <Badge soft>{flag}</Badge>}
+        </div>
+        <Heading className="mb-4 font-sans text-h3">
+          {href ? (
+            <Link href={href} className="no-underline hover:opacity-70">
+              {title}
+            </Link>
+          ) : (
+            title
+          )}
         </Heading>
-        <div className="prose-entry">{children}</div>
-        <p className="mt-4 font-mono text-meta text-muted-foreground">{shape}</p>
+        <div className="prose-entry text-p-sm">{children}</div>
+        <p className="mt-6 text-fine font-medium text-muted-foreground">
+          {shape}
+        </p>
       </div>
-      <MiniFig className="hidden self-start justify-self-end pt-2.5 lg:block">{figure}</MiniFig>
+      <div className="hidden self-start rounded-xl bg-card p-8 shadow-[0_1px_2px_rgba(0,0,0,.04)] lg:block">
+        <MiniFig className="[&_svg]:mx-auto [&_svg]:max-w-[220px]">
+          {figure}
+        </MiniFig>
+      </div>
     </section>
   );
 }

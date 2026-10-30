@@ -1,62 +1,62 @@
-import type { Metadata } from "next";
-import { Cinzel, DM_Mono, Instrument_Sans } from "next/font/google";
-import { SiteFooter } from "@/components/layout/site-footer";
-import { SiteHeader } from "@/components/layout/site-header";
-import { TopBar } from "@/components/layout/top-bar";
-import { RevealObserver } from "@/components/reveal-observer";
-import { site } from "@/lib/site";
-import "./globals.css";
+import type { Metadata } from 'next';
+import { Archivo, Lora } from 'next/font/google';
+import { JsonLd } from '@/components/json-ld';
+import { SiteFooter } from '@/components/layout/site-footer';
+import { SiteHeader } from '@/components/layout/site-header';
+import { RevealObserver } from '@/components/reveal-observer';
+import { SmoothScroll } from '@/components/smooth-scroll';
+import { ThemeProvider } from '@/components/theme-provider';
+import { ThemeToggle } from '@/components/theme-toggle';
+import { graph, openGraphDefaults, organizationLd, websiteLd } from '@/lib/seo';
+import { site } from '@/lib/site';
+import './globals.css';
 
-const instrumentSans = Instrument_Sans({
-  variable: "--font-instrument-sans",
-  subsets: ["latin"],
-  style: ["normal", "italic"],
+const archivo = Archivo({
+  variable: '--font-archivo',
+  subsets: ['latin'],
 });
 
-const dmMono = DM_Mono({
-  variable: "--font-dm-mono",
-  subsets: ["latin"],
-  weight: ["400", "500"],
-  // The latin subset has no "→"; fall straight through to SF Mono/Consolas like the old stack did.
-  adjustFontFallback: false,
-});
-
-// Only used for the text ring on the seal mark.
-const cinzel = Cinzel({
-  variable: "--font-cinzel",
-  subsets: ["latin"],
-  weight: "600",
-  preload: false,
+const lora = Lora({
+  variable: '--font-lora',
+  subsets: ['latin'],
 });
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
-  title: { default: site.name, template: `%s — ${site.name}` },
+  title: {
+    default: `${site.name} • ${site.tagline}`,
+    template: `%s • ${site.name}`,
+  },
   description: site.description,
   openGraph: {
-    type: "website",
-    siteName: site.name,
-    locale: "en_US",
-    url: "/",
-    images: [{ url: "/opengraph-image.png", width: 1200, height: 630, alt: site.name }],
+    ...openGraphDefaults,
+    type: 'website',
+    url: '/',
+    title: `${site.name} • ${site.tagline}`,
+    description: site.description,
   },
-  twitter: { card: "summary_large_image", images: ["/opengraph-image.png"] },
+  // title, description and image fill in from each page's openGraph
+  twitter: { card: 'summary_large_image' },
   robots: { index: true, follow: true },
-  alternates: { canonical: "/" },
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default function RootLayout({ children }: LayoutProps<'/'>) {
   return (
     <html
       lang="en"
-      className={`${instrumentSans.variable} ${dmMono.variable} ${cinzel.variable} h-full antialiased`}
+      className={`${archivo.variable} ${lora.variable} h-full antialiased`}
+      suppressHydrationWarning
     >
       <body className="flex min-h-full flex-col">
-        <TopBar />
-        <SiteHeader />
-        <main className="flex-1">{children}</main>
-        <SiteFooter />
+        <JsonLd data={graph([organizationLd(), websiteLd()])} />
+        <ThemeProvider>
+          <SiteHeader />
+          <main className="flex-1">{children}</main>
+          <SiteFooter />
+          <ThemeToggle />
+        </ThemeProvider>
         <RevealObserver />
+        <SmoothScroll />
       </body>
     </html>
   );

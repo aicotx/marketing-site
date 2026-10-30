@@ -1,6 +1,6 @@
-import { cn } from "@/lib/utils";
+import { cn } from '@/lib/utils';
 
-/** Cream card framing an illustrative deliverable excerpt. */
+/** White card framing an illustrative deliverable excerpt, styled like a piece of product UI. */
 export function FigureCard({
   title,
   tag,
@@ -15,13 +15,22 @@ export function FigureCard({
   children: React.ReactNode;
 }) {
   return (
-    <div className={cn("rounded-lg border border-border bg-card px-[26px] pt-6 pb-5 shadow-[0_24px_60px_-36px_rgba(70,40,15,.25)]", className)}>
-      <div className="mb-[18px] flex items-baseline justify-between gap-3">
-        <span className="text-sm font-semibold tracking-[-0.01em] text-ink">{title}</span>
-        {tag && <span className="whitespace-nowrap font-mono text-meta text-muted-foreground">{tag}</span>}
+    <div
+      className={cn(
+        'rounded-xl border border-border bg-card px-7 pt-6 pb-6 text-card-foreground shadow-[0_1px_2px_rgba(0,0,0,.04),0_24px_60px_-32px_rgba(0,0,0,.22)]',
+        className,
+      )}
+    >
+      <div className="mb-5 flex items-baseline justify-between gap-3 border-b border-border pb-4">
+        <span className="text-ui font-semibold text-ink">{title}</span>
+        {tag && (
+          <span className="whitespace-nowrap text-fine text-muted-foreground">
+            {tag}
+          </span>
+        )}
       </div>
       {children}
-      {note && <p className="mt-4 font-mono text-meta text-muted-foreground">{note}</p>}
+      {note && <p className="mt-5 text-fine text-muted-foreground">{note}</p>}
     </div>
   );
 }

@@ -1,46 +1,138 @@
-@import "tailwindcss";
-@import "tw-animate-css";
-@import "shadcn/tailwind.css";
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import 'shadcn/tailwind.css';
 
 @custom-variant dark (&:is(.dark *));
 
 /* ------------------------------------------------------------------
    The AI Company of Texas — design tokens
-   Beige ground, grotesk type, mono kickers, hairline rules,
-   burnt-orange accent, espresso bands, pill buttons.
+   White ground, near-black ink, Lora display serif over Archivo,
+   soft gray cards, black pill buttons, full-bleed dark sections.
    ------------------------------------------------------------------ */
 
-:root {
+/* .surface-light resets the tokens inside a .surface-dark region */
+:root,
+.surface-light {
+  /* brand palette */
+  --brand-primary: #ffffff;
+  --brand-secondary: #1c1c1c;
+
   /* shadcn semantic tokens */
-  --background: #fbf7ef;
-  --foreground: #3e352a;
-  --card: #fffdf7;
-  --card-foreground: #201812;
-  --popover: #fffdf7;
-  --popover-foreground: #201812;
-  --primary: #8f3d1f;
-  --primary-foreground: #ffffff;
-  --secondary: #2e1a10;
-  --secondary-foreground: #f7efe2;
-  --muted: #f4eddd;
-  --muted-foreground: #8b7f6b;
-  --accent: #efdacb;
-  --accent-foreground: #201812;
-  --destructive: #8f3d1f;
-  --border: #e6deca;
-  --input: #e6deca;
-  --ring: #8f3d1f;
-  --radius: 1rem;
+  --background: var(--brand-primary);
+  --foreground: #4a4a4a;
+  --card: #ffffff;
+  --card-foreground: #1c1c1c;
+  --popover: #ffffff;
+  --popover-foreground: #1c1c1c;
+  --primary: var(--brand-secondary);
+  --primary-foreground: var(--brand-primary);
+  --secondary: var(--brand-secondary);
+  --secondary-foreground: var(--brand-primary);
+  --muted: #f5f5f4;
+  --muted-foreground: #737373;
+  --accent: #e7e7e6;
+  --accent-foreground: #1c1c1c;
+  --destructive: #1c1c1c;
+  --border: #e5e5e5;
+  --input: #e5e5e5;
+  --ring: #1c1c1c;
+  --radius: 1.5rem;
 
   /* brand extras with no shadcn slot */
-  --ink: #201812;
-  --rust-deep: #6f2d15;
-  --rust-bright: #b26243;
-  --gold: #b08a45;
-  --espresso-hover: #43281a;
-  --espresso-soft: #c9b49d;
-  --cream-deep: #eae0ca;
-  --band-rule: rgba(247, 239, 226, 0.18);
+  --ink: var(--brand-secondary);
+  --ink-hover: #3a3a3a;
+  --subtle: #a3a3a3;
+
+  /* strokes and dots in the inline-SVG diagrams */
+  --fig-line: #cfcfcf;
+  --fig-dot: #d4d4d4;
+}
+
+/* Dark mode (next-themes puts .dark on <html>): the page takes the brand
+   ink as its ground and every token flips. .surface-light regions follow. */
+.dark,
+.dark .surface-light {
+  --background: var(--brand-secondary);
+  --foreground: #b5b5b5;
+  --card: #2f2f2f;
+  --card-foreground: #ffffff;
+  --popover: #2f2f2f;
+  --popover-foreground: #ffffff;
+  --primary: var(--brand-primary);
+  --primary-foreground: var(--brand-secondary);
+  --secondary: var(--brand-primary);
+  --secondary-foreground: var(--brand-secondary);
+  --muted: #262626;
+  --muted-foreground: #8c8c8c;
+  --accent: #3d3d3d;
+  --accent-foreground: #ffffff;
+  --destructive: #ffffff;
+  --border: rgba(255, 255, 255, 0.13);
+  --input: rgba(255, 255, 255, 0.13);
+  --ring: #ffffff;
+  --ink: var(--brand-primary);
+  --ink-hover: #d4d4d4;
+  --subtle: #6b6b6b;
+  --fig-line: #555555;
+  --fig-dot: #4a4a4a;
+}
+
+/* Responsive type steps (see the type scale in @theme). Phone first. */
+:root {
+  --type-h1: 52px;
+  --type-h1-lh: 54px;
+  --type-h2-band: 44px;
+  --type-h2-band-lh: 52px;
+  --type-button-sm: 12px;
+  --type-button-sm-lh: 12px;
+}
+@media (width >= 48rem) {
+  :root {
+    --type-h1: 72px;
+    --type-h1-lh: 72px;
+    --type-h2-band: 52px;
+    --type-h2-band-lh: 57.72px;
+    --type-button-sm: 14px;
+    --type-button-sm-lh: 17.92px;
+  }
+}
+@media (width >= 64rem) {
+  :root {
+    --type-h1: 80px;
+    --type-h1-lh: 80px;
+  }
+}
+
+/* Dark surface: remaps the tokens so any component placed inside inverts.
+   Lives in the base layer so utilities on the same element still win. */
+@layer base {
+  .surface-dark {
+    --background: var(--brand-secondary);
+    --foreground: #b5b5b5;
+    --card: #262626;
+    --card-foreground: #ffffff;
+    --primary: var(--brand-primary);
+    --primary-foreground: var(--brand-secondary);
+    --muted: #262626;
+    --muted-foreground: #8c8c8c;
+    --accent: #333333;
+    --border: rgba(255, 255, 255, 0.13);
+    --ink: var(--brand-primary);
+    --ink-hover: #d4d4d4;
+    --subtle: #6b6b6b;
+    --fig-line: #555555;
+    --fig-dot: #4a4a4a;
+    background-color: var(--background);
+    color: var(--foreground);
+  }
+  /* on a dark page, dark panels sink a step deeper so they still read as panels */
+  .dark .surface-dark {
+    --background: #111111;
+    --card: #222222;
+    --muted: #1c1c1c;
+    --accent: #2e2e2e;
+    --border: rgba(255, 255, 255, 0.1);
+  }
 }
 
 @theme inline {
@@ -64,75 +156,64 @@
   --color-ring: var(--ring);
 
   --color-ink: var(--ink);
-  --color-rust-deep: var(--rust-deep);
-  --color-rust-bright: var(--rust-bright);
-  --color-gold: var(--gold);
-  --color-espresso-hover: var(--espresso-hover);
-  --color-espresso-soft: var(--espresso-soft);
-  --color-cream-deep: var(--cream-deep);
-  --color-band-rule: var(--band-rule);
+  --color-ink-hover: var(--ink-hover);
+  --color-subtle: var(--subtle);
 
-  --radius-sm: calc(var(--radius) * 0.6);
-  --radius-md: calc(var(--radius) * 0.8);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) * 1.25);
+  --radius-sm: calc(var(--radius) * 0.4);
+  --radius-md: calc(var(--radius) * 0.6);
+  --radius-lg: calc(var(--radius) * 0.8);
+  --radius-xl: var(--radius);
+  --radius-2xl: calc(var(--radius) * 1.25);
 
   /* Tailwind's named sizes ship their own line-heights; the site uses one rhythm */
-  --text-xs--line-height: 1.55;
-  --text-sm--line-height: 1.55;
-  --text-base--line-height: 1.55;
-  --text-lg--line-height: 1.55;
-  --text-xl--line-height: 1.55;
+  --text-xs--line-height: 18px;
+  --text-sm--line-height: 20px;
+  --text-base--line-height: 22px;
 
-  /* type scale: size / line-height / letter-spacing per role */
-  --text-display: clamp(42px, 6.4vw, 84px);
-  --text-display--line-height: 0.98;
-  --text-display--letter-spacing: -0.043em;
-  --text-headline: clamp(40px, 5.8vw, 72px);
-  --text-headline--line-height: 1;
-  --text-headline--letter-spacing: -0.04em;
-  --text-band: clamp(36px, 4.8vw, 64px);
-  --text-band--line-height: 1;
-  --text-band--letter-spacing: -0.04em;
-  --text-title: clamp(30px, 3.6vw, 48px);
-  --text-title--line-height: 1.04;
-  --text-title--letter-spacing: -0.035em;
-  --text-subtitle: clamp(28px, 3.2vw, 40px);
-  --text-subtitle--line-height: 1.55;
-  --text-subtitle--letter-spacing: -0.035em;
-  --text-essay: clamp(25px, 2.8vw, 34px);
-  --text-essay--line-height: 1.55;
-  --text-essay--letter-spacing: -0.03em;
-  --text-entry: clamp(22px, 2.2vw, 27px);
-  --text-entry--line-height: 1.15;
-  --text-entry--letter-spacing: -0.03em;
-  --text-lede: clamp(18px, 1.7vw, 22px);
-  --text-lede--line-height: 1.45;
-  --text-lede--letter-spacing: -0.02em;
-  --text-page-lede: clamp(16.5px, 1.5vw, 19px);
-  --text-page-lede--line-height: 1.55;
-  --text-band-body: clamp(16px, 1.4vw, 18.5px);
-  --text-band-body--line-height: 1.55;
-  --text-body-lg: clamp(16px, 1.3vw, 18px);
-  --text-body-lg--line-height: 1.55;
-  --text-kicker: 15px;
-  --text-kicker--line-height: 1.55;
-  --text-kicker--letter-spacing: -0.04em;
-  --text-label: 11.5px;
-  --text-label--line-height: 1.55;
-  --text-label--letter-spacing: 0.16em;
-  --text-meta: 12.5px;
-  --text-meta--line-height: 1.55;
-  --text-meta--letter-spacing: -0.02em;
+  /* type scale. Headings step at md (768) and lg (1024)
+     via the --type-* variables below; everything else is fixed. */
+  --text-h1: var(--type-h1);
+  --text-h1--line-height: var(--type-h1-lh);
+  --text-h2: 48px;
+  --text-h2--line-height: 54px;
+  --text-h2-band: var(--type-h2-band);
+  --text-h2-band--line-height: var(--type-h2-band-lh);
+  --text-h3: 24px;
+  --text-h3--line-height: 28px;
+  --text-h3-sm: 20px;
+  --text-h3-sm--line-height: 24px;
+  --text-p: 16px;
+  --text-p--line-height: 22px;
+  --text-p-sm: 14px;
+  --text-p-sm--line-height: 19.88px;
+  --text-fine: 12px;
+  --text-fine--line-height: 18px;
+  --text-li: 16px;
+  --text-li--line-height: 24px;
+  /* single-line UI text: nav links, chips */
+  --text-tight: 16px;
+  --text-tight--line-height: 16px;
+  /* list and footer links */
+  --text-link: 14px;
+  --text-link--line-height: 21px;
+  /* inline "learn more" style links */
+  --text-caption: 14px;
+  --text-caption--line-height: 18px;
+  /* labels inside product-style UI (figure cards) */
+  --text-ui: 14px;
+  --text-ui--line-height: 20px;
+  --text-button: 16px;
+  --text-button--line-height: 21.92px;
+  --text-button-sm: var(--type-button-sm);
+  --text-button-sm--line-height: var(--type-button-sm-lh);
 
   /* fonts: variables are set by next/font in app/layout.tsx */
-  --font-sans: var(--font-instrument-sans), "Helvetica Neue", Arial, sans-serif;
-  --font-mono: var(--font-dm-mono), "SFMono-Regular", Consolas, monospace;
-  --font-seal: var(--font-cinzel), "Times New Roman", serif;
+  --font-sans: var(--font-archivo), 'Helvetica Neue', Arial, sans-serif;
+  --font-serif: var(--font-lora), 'Times New Roman', serif;
 
   /* layout */
-  --container-shell: 1248px;
-  --container-rail: 1400px;
+  --container-shell: 1376px;
+  --container-rail: 1600px;
   --spacing-gutter: clamp(20px, 4vw, 48px);
 }
 
@@ -140,20 +221,46 @@
   * {
     @apply border-border outline-ring/50;
   }
+  /* scrolling is eased by Lenis (components/smooth-scroll.tsx), not scroll-behavior */
   html {
-    @apply font-sans scroll-smooth motion-reduce:scroll-auto;
+    @apply font-sans;
   }
   body {
-    @apply bg-background text-foreground text-base leading-[1.55] antialiased;
+    @apply bg-background text-foreground text-p antialiased;
     text-rendering: optimizeLegibility;
   }
   ::selection {
-    @apply bg-primary text-white;
+    @apply bg-ink text-background;
   }
   h1,
   h2,
   h3 {
-    @apply font-normal text-ink text-balance;
+    @apply font-serif font-normal text-ink text-balance;
+  }
+  /* card and grid titles are sans*/
+  h3 {
+    @apply font-sans;
+  }
+  /* display headline: tracked in and set solid, scaled to each step's size */
+  h1 {
+    @apply text-h1 leading-[0.95] tracking-[-0.03em];
+  }
+  h2 {
+    @apply text-h2;
+  }
+  h3 {
+    @apply text-h3;
+  }
+  /* At 48px, Lora fits every heading from 360px up; below that a few long
+     words ("Standardized", "Orchestrated") outgrow the column, so let only
+     long words hyphenate on the narrowest phones. */
+  @media (width < 22.5rem) {
+    h1,
+    h2 {
+      hyphens: auto;
+      hyphenate-limit-chars: 12 5 5;
+      overflow-wrap: break-word;
+    }
   }
   strong {
     @apply text-ink font-semibold;
@@ -162,17 +269,14 @@
 
 /* ---------- named text roles ---------- */
 
-/* mono eyebrow above a section; <em> inside is the rust highlight */
+/* small eyebrow above a heading */
 @utility kicker {
-  @apply font-mono text-kicker text-muted-foreground;
-  & em {
-    @apply not-italic text-primary;
-  }
+  @apply font-sans text-p text-muted-foreground;
 }
 
-/* small uppercase sans label (list headings, column heads) */
-@utility label-caps {
-  @apply text-label font-semibold uppercase text-rust-deep;
+/* small sentence-case sans label (list headings, column heads) */
+@utility label-sm {
+  @apply font-sans text-fine font-medium text-muted-foreground;
 }
 
 /* running copy: paragraph rhythm, links, emphasis */
@@ -180,13 +284,13 @@
   /* size lives on the paragraphs so a 68ch max-width on the wrapper measures at 16px */
   @apply text-foreground;
   & :where(p) {
-    @apply text-body-lg mb-[1.35em];
+    @apply text-p mb-[1.3em];
   }
   & :where(p:last-child) {
     @apply mb-0;
   }
   & a {
-    @apply text-primary underline decoration-accent underline-offset-[3px] hover:text-rust-deep;
+    @apply text-ink underline decoration-subtle decoration-1 underline-offset-4 transition-colors hover:decoration-ink;
   }
   & em {
     @apply italic;
@@ -202,7 +306,7 @@
     @apply mb-0;
   }
   & a {
-    @apply text-primary underline decoration-accent underline-offset-[3px] hover:text-rust-deep;
+    @apply text-ink underline decoration-subtle decoration-1 underline-offset-4 transition-colors hover:decoration-ink;
   }
   & strong {
     @apply font-medium;
@@ -213,46 +317,68 @@
 
 /* content section; consecutive sections collapse their top padding */
 @utility section-block {
-  padding-block: clamp(56px, 8vw, 112px);
+  padding-block: 112px;
   & + & {
     padding-block-start: 0;
   }
 }
 
-/* faint dot grid over the espresso surfaces (top bar, band) */
-@utility bg-dots {
-  background-image: radial-gradient(rgba(255, 255, 255, 0.12) 1px, transparent 1px);
-  background-size: 22px 22px;
+/* soft studio lighting on dark panels (hero, closing band) */
+@utility bg-glow {
+  background-image:
+    radial-gradient(
+      60% 80% at 85% 0%,
+      rgba(255, 255, 255, 0.14) 0%,
+      rgba(255, 255, 255, 0) 60%
+    ),
+    radial-gradient(
+      50% 70% at 0% 100%,
+      rgba(255, 255, 255, 0.07) 0%,
+      rgba(255, 255, 255, 0) 60%
+    );
 }
 
 /* stroke/fill roles for the small inline-SVG diagrams (see components/figures/mini-fig.tsx) */
 @layer components {
-  .mini-fig svg { display: block; width: 100%; max-width: 200px; height: auto; }
-  .mini-fig .ln { fill: none; stroke: #d5c9b0; stroke-width: 1.25; }
-  .mini-fig .lnk { fill: none; stroke: var(--foreground); stroke-width: 1.25; }
-  .mini-fig .dash { fill: none; stroke: #d5c9b0; stroke-width: 1.25; stroke-dasharray: 3 4; }
-  .mini-fig .acc { fill: var(--primary); }
-  .mini-fig .acc-ln { fill: none; stroke: var(--primary); stroke-width: 1.5; }
-  .mini-fig .dot { fill: #d5c9b0; }
-  .mini-fig text { font-family: var(--font-mono); font-size: 9px; fill: var(--muted-foreground); letter-spacing: 0.04em; }
-}
-
-/* full-height vertical rails framing the content well */
-@layer base {
-  @media (width >= theme(--breakpoint-xl)) {
-    body::before,
-    body::after {
-      content: "";
-      position: fixed;
-      top: 0;
-      bottom: 0;
-      width: 1px;
-      background: var(--border);
-      z-index: 1;
-      pointer-events: none;
-    }
-    body::before { left: calc(50% - var(--container-rail) / 2); }
-    body::after  { right: calc(50% - var(--container-rail) / 2); }
+  .mini-fig svg {
+    display: block;
+    width: 100%;
+    max-width: 200px;
+    height: auto;
+  }
+  .mini-fig .ln {
+    fill: none;
+    stroke: var(--fig-line);
+    stroke-width: 1.25;
+  }
+  .mini-fig .lnk {
+    fill: none;
+    stroke: var(--ink);
+    stroke-width: 1.25;
+  }
+  .mini-fig .dash {
+    fill: none;
+    stroke: var(--fig-line);
+    stroke-width: 1.25;
+    stroke-dasharray: 3 4;
+  }
+  .mini-fig .acc {
+    fill: var(--ink);
+  }
+  .mini-fig .acc-ln {
+    fill: none;
+    stroke: var(--ink);
+    stroke-width: 1.5;
+  }
+  .mini-fig .dot {
+    fill: var(--fig-dot);
+  }
+  .mini-fig text {
+    font-family: var(--font-sans);
+    font-size: 8.5px;
+    font-weight: 600;
+    fill: var(--muted-foreground);
+    letter-spacing: 0.06em;
   }
 }
 
@@ -261,18 +387,20 @@
   list-style: none;
   & > li {
     position: relative;
-    padding: 12px 0 12px 28px;
+    padding: 14px 0 14px 28px;
     border-bottom: 1px solid var(--border);
     color: var(--foreground);
+    font-size: 16px; /* matches --text-li */
+    line-height: 24px;
   }
   & > li:first-child {
     border-top: 1px solid var(--border);
   }
   & > li::before {
-    content: "—";
+    content: '—';
     position: absolute;
     left: 0;
-    color: var(--primary);
+    color: var(--ink);
   }
 }
 
@@ -280,8 +408,10 @@
 @media (prefers-reduced-motion: no-preference) {
   .reveal {
     opacity: 0;
-    transform: translateY(14px);
-    transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.25, 0.1, 0.25, 1);
+    transform: translateY(18px);
+    transition:
+      opacity 0.8s ease,
+      transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
   }
   .reveal.in {
     opacity: 1;

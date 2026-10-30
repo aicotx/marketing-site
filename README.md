@@ -1,47 +1,36 @@
-# aicotx.com
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-Source of the AICOTX marketing site — Next.js (App Router), Tailwind CSS v4, shadcn/ui.
+## Getting Started
 
-| Page | Route |
-|------|-------|
-| Home | `app/page.tsx` |
-| Approach | `app/approach/page.tsx` |
-| Services | `app/services/page.tsx` |
-| Products | `app/products/page.tsx` |
-| The AI maturity ladder | `app/ladder/page.tsx` |
-| Contact | `app/contact/page.tsx` |
+First, run the development server:
 
-- **Design tokens, fonts and typography** live in `app/globals.css` (shadcn token names, brand
-  extras, the type scale as `--text-*` tokens). Fonts load through `next/font` in `app/layout.tsx`.
-- **Shared components** are in `components/`: layout chrome (`layout/`), brand marks (`brand/`),
-  page and section pieces (`sections/`), figures and inline diagrams (`figures/`), and the shadcn
-  `Button` with the site's pill variants (`ui/`).
-- **Metadata** is per page via `pageMetadata()` in `lib/site.ts`; `app/sitemap.ts` and
-  `app/robots.ts` are generated. The favicon and OG image are `app/icon.svg` and
-  `app/opengraph-image.png`.
-- Brand masters live in `aicotx/digital-assets`; unreferenced imagery sits in `public/img/`.
-
-## Editing
-
-```sh
-npm install
-npm run dev      # http://localhost:3000
-npm run build && npm run lint
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
 ```
 
-- URLs keep their trailing slash (`/ladder/`), set in `next.config.ts`.
-- The footer colophon stays plain ("Texas, USA") — no font credits.
-- Positioning copy follows the knowledge base (`aicotx/knowledge-base`, `offer-and-pricing.md`
-  and `ai-maturity-model.md`). Legal name on anything contractual is **AICOTX LLC**; "The AI
-  Company of Texas" is the marketing name.
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-## Visual regression
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-`scripts/reference-shots.mjs <baseUrl> <outDir>` captures full-page screenshots of every route
-at 1440px and 390px plus computed styles for the pill buttons. `docs/reference/` holds the
-baseline captured from the previous static site (gitignored). Run it against a preview URL and
-compare.
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-## Deploying
+## Learn More
 
-Vercel builds from `main`; no config beyond the framework defaults is needed.
+To learn more about Next.js, take a look at the following resources:
+
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+
+## Deploy on Vercel
+
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.

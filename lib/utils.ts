@@ -1,16 +1,29 @@
-import { createCn } from "cn/config";
+import { createCn } from 'cn/config';
 
 // Teach the class merger about the site's type-scale tokens (see --text-* in
-// app/globals.css) so `text-title` is not treated as a colour that conflicts
+// app/globals.css) so `text-h2` is not treated as a colour that conflicts
 // with `text-ink`.
 export const cn = createCn({
   extend: {
     classGroups: {
-      "font-size": [
+      'font-size': [
         {
           text: [
-            "display", "headline", "band", "title", "subtitle", "essay", "entry",
-            "lede", "page-lede", "band-body", "body-lg", "kicker", "label", "meta",
+            'h1',
+            'h2',
+            'h2-band',
+            'h3',
+            'h3-sm',
+            'p',
+            'p-sm',
+            'fine',
+            'li',
+            'tight',
+            'link',
+            'caption',
+            'ui',
+            'button',
+            'button-sm',
           ],
         },
       ],
