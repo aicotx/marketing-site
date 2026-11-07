@@ -7,7 +7,7 @@
 /* ------------------------------------------------------------------
    The AI Company of Texas — design tokens
    White ground, near-black ink, Lora display serif over Archivo,
-   soft gray cards, black pill buttons, full-bleed dark sections.
+   soft gray cards with square corners, black pill buttons, full-bleed dark sections.
    ------------------------------------------------------------------ */
 
 /* .surface-light resets the tokens inside a .surface-dark region */
@@ -36,7 +36,8 @@
   --border: #e5e5e5;
   --input: #e5e5e5;
   --ring: #1c1c1c;
-  --radius: 1.5rem;
+  /* square corners everywhere; only pills (rounded-full) stay round */
+  --radius: 0rem;
 
   /* brand extras with no shadcn slot */
   --ink: var(--brand-secondary);
@@ -252,7 +253,7 @@
     @apply text-h3;
   }
   /* At 48px, Lora fits every heading from 360px up; below that a few long
-     words ("Standardized", "Orchestrated") outgrow the column, so let only
+     words ("Experimenting", "Standardized") outgrow the column, so let only
      long words hyphenate on the narrowest phones. */
   @media (width < 22.5rem) {
     h1,
@@ -272,6 +273,14 @@
 /* small eyebrow above a heading */
 @utility kicker {
   @apply font-sans text-p text-muted-foreground;
+}
+
+/* large sans statement under an eyebrow (section ledes, page statements) */
+@utility lede {
+  @apply font-sans font-medium text-ink;
+  font-size: clamp(22px, 2.1vw, 27px);
+  line-height: 1.22;
+  letter-spacing: -0.01em;
 }
 
 /* small sentence-case sans label (list headings, column heads) */
@@ -320,65 +329,6 @@
   padding-block: 112px;
   & + & {
     padding-block-start: 0;
-  }
-}
-
-/* soft studio lighting on dark panels (hero, closing band) */
-@utility bg-glow {
-  background-image:
-    radial-gradient(
-      60% 80% at 85% 0%,
-      rgba(255, 255, 255, 0.14) 0%,
-      rgba(255, 255, 255, 0) 60%
-    ),
-    radial-gradient(
-      50% 70% at 0% 100%,
-      rgba(255, 255, 255, 0.07) 0%,
-      rgba(255, 255, 255, 0) 60%
-    );
-}
-
-/* stroke/fill roles for the small inline-SVG diagrams (see components/figures/mini-fig.tsx) */
-@layer components {
-  .mini-fig svg {
-    display: block;
-    width: 100%;
-    max-width: 200px;
-    height: auto;
-  }
-  .mini-fig .ln {
-    fill: none;
-    stroke: var(--fig-line);
-    stroke-width: 1.25;
-  }
-  .mini-fig .lnk {
-    fill: none;
-    stroke: var(--ink);
-    stroke-width: 1.25;
-  }
-  .mini-fig .dash {
-    fill: none;
-    stroke: var(--fig-line);
-    stroke-width: 1.25;
-    stroke-dasharray: 3 4;
-  }
-  .mini-fig .acc {
-    fill: var(--ink);
-  }
-  .mini-fig .acc-ln {
-    fill: none;
-    stroke: var(--ink);
-    stroke-width: 1.5;
-  }
-  .mini-fig .dot {
-    fill: var(--fig-dot);
-  }
-  .mini-fig text {
-    font-family: var(--font-sans);
-    font-size: 8.5px;
-    font-weight: 600;
-    fill: var(--muted-foreground);
-    letter-spacing: 0.06em;
   }
 }
 

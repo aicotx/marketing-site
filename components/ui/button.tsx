@@ -21,6 +21,10 @@ const buttonVariants = cva(
         dark: 'bg-ink text-background hover:bg-ink-hover',
         light: 'bg-background text-ink hover:bg-muted',
         line: 'border-ink/90 bg-transparent text-ink hover:bg-ink hover:text-background',
+        /* pills over photography: fixed white whatever the theme */
+        photo: 'bg-white text-[#1c1c1c] hover:bg-white/85',
+        'photo-line':
+          'border-white/45 bg-transparent text-white hover:bg-white/10',
       },
       size: {
         default:

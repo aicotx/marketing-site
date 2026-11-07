@@ -3,7 +3,7 @@ import {
   founders,
   type Founder,
   type Level,
-  type Product,
+  type Solution,
   type Service,
 } from './content';
 import { site } from './site';
@@ -15,6 +15,14 @@ import { site } from './site';
  */
 
 export const SITE_URL = site.url;
+
+/**
+ * Every page title but the home page's, browser tab and social card alike:
+ * "{title} • {site name}". The home page leads with the name (app/layout.tsx).
+ */
+export function pageTitle(title: string): string {
+  return `${title} • ${site.name}`;
+}
 
 export function absoluteUrl(path = ''): string {
   if (path.startsWith('http')) return path;
@@ -74,8 +82,8 @@ export function organizationLd() {
       'AI adoption strategy',
       'AI agents',
       'Agent orchestration',
-      'LLM evaluation',
-      'Permission-aware retrieval',
+      'Claude Code plugins',
+      'Enterprise knowledge bases',
     ],
   };
 }
@@ -135,7 +143,7 @@ export function companyPageLd(description: string) {
     '@type': 'AboutPage',
     '@id': `${url}#webpage`,
     url,
-    name: `Company • ${site.name}`,
+    name: pageTitle('Company'),
     description,
     isPartOf: { '@id': SITE_ID },
     about: { '@id': ORG_ID },
@@ -150,7 +158,7 @@ export function pageBreadcrumbLd(name: string, path: string) {
   ]);
 }
 
-/** A long-form page (the ladder methodology, the approach essay). */
+/** A long-form page (the ladder). */
 export function articleLd({
   path,
   headline,
@@ -175,15 +183,15 @@ export function articleLd({
   };
 }
 
-/** The six-level maturity ladder as a set of defined terms. */
+/** The six-rung adoption ladder as a set of defined terms. */
 export function ladderLd(items: Level[]) {
   return {
     '@type': 'DefinedTermSet',
     '@id': LADDER_ID,
-    name: 'The AI Maturity Ladder',
+    name: 'The AI Adoption Ladder',
     url: absoluteUrl('/ladder/'),
     description:
-      'Six levels of AI maturity, from Shadow AI to orchestrated, agent-first operations, assessed per function rather than per company.',
+      'Six rungs of AI adoption, from Experimenting (Rung 1) to Essential (Rung 6). Each rung builds on the one below.',
     hasDefinedTerm: items.map((level) => ({
       '@type': 'DefinedTerm',
       '@id': absoluteUrl(`/ladder/#${level.id}`),
@@ -197,10 +205,10 @@ export function ladderLd(items: Level[]) {
 }
 
 function serviceLd(service: Service) {
-  const url = absoluteUrl(`/services/#${service.id}`);
+  const url = absoluteUrl(`/ladder/#${service.from}`);
   return {
     '@type': 'Service',
-    '@id': url,
+    '@id': absoluteUrl(`/ladder/#service-${service.id}`),
     name: service.title,
     url,
     serviceType: 'AI consulting',
@@ -210,11 +218,11 @@ function serviceLd(service: Service) {
   };
 }
 
-/** The service catalog as an ItemList of Service nodes, in ladder order. */
+/** How we help at each rung, as an ItemList of Service nodes in ladder order. */
 export function serviceCatalogLd(items: Service[]) {
   return {
     '@type': 'ItemList',
-    '@id': absoluteUrl('/services/#catalog'),
+    '@id': absoluteUrl('/ladder/#services'),
     name: `${site.name} services`,
     itemListElement: items.map((service, index) => ({
       '@type': 'ListItem',
@@ -224,16 +232,28 @@ export function serviceCatalogLd(items: Service[]) {
   };
 }
 
-export function productLd(product: Product) {
-  const url = absoluteUrl(`/products/#${product.id}`);
+/** One solution: a Service node for a service, a SoftwareApplication for a product. */
+export function solutionLd(solution: Solution) {
+  const url = absoluteUrl(`/solutions/#${solution.id}`);
+  const shared = {
+    '@id': url,
+    name: solution.name,
+    url,
+    description: solution.summary,
+  };
+  if (solution.kind === 'service') {
+    return {
+      '@type': 'Service',
+      ...shared,
+      serviceType: 'AI consulting',
+      provider: { '@id': ORG_ID },
+      areaServed: { '@type': 'State', name: 'Texas' },
+    };
+  }
   return {
     '@type': 'SoftwareApplication',
-    '@id': url,
-    name: product.name,
-    url,
+    ...shared,
     applicationCategory: 'BusinessApplication',
-    operatingSystem: 'Web',
-    description: product.summary,
     publisher: { '@id': ORG_ID },
     author: { '@id': ORG_ID },
   };

@@ -1,74 +1,85 @@
 /**
- * The site's core entities — the six ladder levels, the service catalog, the
- * products, and the working principles — as plain data. Pages render from
- * this, and so do /llms.txt and the JSON-LD in lib/seo.ts, so the
- * machine-readable descriptions never drift from what visitors see.
+ * The site's core entities — the six ladder levels, how we help at each rung,
+ * and the products — as plain data. Pages render from this, and so do
+ * /llms.txt and the JSON-LD in lib/seo.ts, so the machine-readable
+ * descriptions never drift from what visitors see.
  */
 
 export type Level = {
   id: string;
   code: string;
   name: string;
-  /** Compact label for the ladder page's sticky index. */
-  short: string;
   /** One-line description (home page level grid). */
   summary: string;
   /** What a company at this level says about itself (ladder page epigraph). */
   quote: string;
+  /** What this rung looks like from the inside (ladder page). */
+  detail: string;
+  /** What the next rung up requires. The top rung has none. */
+  exit?: string;
 };
 
 export const levels: Level[] = [
   {
-    id: 'l0',
-    code: 'L0',
-    name: 'Shadow AI',
-    short: 'Shadow AI',
-    summary: 'Some people use chatgpt.com. Nobody sanctioned it.',
-    quote: 'Some people use chatgpt.com. Nobody sanctioned it.',
+    id: 'rung-1',
+    code: 'Rung 1',
+    name: 'Experimenting',
+    summary: 'A few people use ChatGPT. Nobody sanctioned it.',
+    quote: 'Some people use ChatGPT. Nobody sanctioned it.',
+    detail:
+      'There is no policy and there are no company accounts. A few people paste company data into personal chatbots, and nobody knows who uses what. The company already carries the risk of AI while capturing almost none of the benefit.',
+    exit: 'Sanctioned tools, set up for how your people actually work, and a policy they can follow.',
   },
   {
-    id: 'l1',
-    code: 'L1',
-    name: 'Sanctioned chat',
-    short: 'Sanctioned chat',
-    summary:
-      'Everyone has a license — and the license is treated as the finish line.',
+    id: 'rung-2',
+    code: 'Rung 2',
+    name: 'Licensed',
+    summary: 'Everyone has a chat account. Nothing about the work has changed.',
     quote: 'We gave everyone a license.',
+    detail:
+      'Everyone has a company account, single sign-on works, and there is a one-page policy. People use it to ask questions, draft, and summarize. The value is real, but it is individual and capped at what each person thinks to ask.',
+    exit: 'AI connected to company knowledge and wired into specific workflows.',
   },
   {
-    id: 'l2',
-    code: 'L2',
-    name: 'Assisted workflows',
-    short: 'Assisted workflows',
-    summary:
-      'Real gains, all personal. The workflow leaves when its owner does.',
+    id: 'rung-3',
+    code: 'Rung 3',
+    name: 'Assisted',
+    summary: 'Individuals build their own workflows. The gains stay personal.',
     quote: 'Our best people have built themselves something remarkable.',
+    detail:
+      'Individuals build AI into their own work, person by person: developers with agentic coding tools, operators with projects, connectors, and prompts passed around in chat. The gains are real but unshared. When the person who built a workflow goes on vacation, the workflow goes with them.',
+    exit: 'The workflows that work become shared, versioned, and safe to hand to everyone.',
   },
   {
-    id: 'l3',
-    code: 'L3',
-    name: 'Standardized capability',
-    short: 'Standardized',
+    id: 'rung-4',
+    code: 'Rung 4',
+    name: 'Standardized',
     summary:
-      'Vetted tooling, versioned and distributed. AI becomes an asset of the company.',
+      'Vetted tooling, versioned and distributed to everyone who needs it.',
     quote: 'How we use AI is an asset of the company now.',
+    detail:
+      'Workflows are packaged and installed from a managed catalog. Everyone gets the same vetted tooling on day one, an improvement reaches everyone on the next update, and IT knows what runs where. People still drive every task; the tooling assists but does not act.',
+    exit: 'Delegating whole tasks to agents that run without a person at the keyboard.',
   },
   {
-    id: 'l4',
-    code: 'L4',
-    name: 'Autonomous operations',
-    short: 'Autonomous ops',
-    summary: 'Agents do whole tasks unattended, gated where it counts.',
-    quote: 'The question became which exceptions need humans.',
-  },
-  {
-    id: 'l5',
-    code: 'L5',
-    name: 'Orchestrated',
-    short: 'Orchestrated',
+    id: 'rung-5',
+    code: 'Rung 5',
+    name: 'Systemic',
     summary:
-      'Fleets of agents own processes end to end. Humans govern by exception.',
+      'Long-running agents do whole tasks unattended, gated where it counts.',
+    quote: 'The question became which exceptions need humans.',
+    detail:
+      'Long-running agents do real work unattended: triaging inboxes, watching queues, drafting for approval, running scheduled jobs. Anything consequential waits for a person, and every agent is logged and cost-tracked like any other production system.',
+    exit: 'Agents composed into supervised systems that own whole processes.',
+  },
+  {
+    id: 'rung-6',
+    code: 'Rung 6',
+    name: 'Essential',
+    summary: 'Agents own processes end to end. Humans govern by exception.',
     quote: 'Humans set policy and handle the edge cases.',
+    detail:
+      'Whole processes run agent-first. Agents check each other’s work and escalate by exception, while people set policy and handle the edges. Almost nobody is here yet, and every rung below is a prerequisite.',
   },
 ];
 
@@ -79,124 +90,146 @@ export function getLevel(id: string): Level {
 }
 
 export type Service = {
-  /** Anchor on /services/. */
   id: string;
-  title: string;
-  /** The rung of the ladder this engagement climbs. */
+  /** The level this service climbs from; it is shown under that rung. */
+  from: string;
+  /** Display label for the climb, e.g. "Rung 1 → 2". */
   climb: string;
-  flag?: string;
-  /** Pricing and duration line. */
-  shape: string;
-  /** One-paragraph description for /llms.txt and structured data. */
+  title: string;
   summary: string;
+  /** Solutions (by id) specific to this climb; `everyClimb` solutions are added on top. */
+  solutions?: string[];
 };
 
+/** How we help at each rung, in ladder order. */
 export const services: Service[] = [
   {
-    id: 'audit',
-    title: 'AI Readiness Audit',
-    climb: 'any → next',
-    flag: 'the wedge',
-    shape: 'Fixed fee · one to two weeks',
+    id: 'rollout',
+    from: 'rung-1',
+    climb: 'Rung 1 → 2',
+    title: 'Sanctioned AI, set up to fit',
     summary:
-      'A function-by-function maturity heatmap of your company, the highest-ROI candidate workflows, honest build-versus-buy calls, and a roadmap priced as specific engagements — not a strategy deck.',
+      'We roll out sanctioned AI tools matched to each team, such as Claude Code for the people who build things and chat on the web for everyone else, with company accounts, single sign-on, and a usage policy people can follow.',
   },
   {
-    id: 'setup',
-    title: 'Sanctioned-AI Setup',
-    climb: '0 → 1',
-    shape: 'Small fixed fee · fast · often bundled into the audit',
+    id: 'knowledge',
+    from: 'rung-2',
+    climb: 'Rung 2 → 3',
+    title: 'Company knowledge, connected',
     summary:
-      'For companies where AI usage is real but unsanctioned: a usage policy that fits how people already work, organizational licenses with single sign-on and managed settings, and an amnesty inventory of existing shadow usage.',
+      'We give your AI tools your company’s knowledge through a shared knowledge base, kept in storage you already use, then help each team build its first real workflows on top of it.',
+    solutions: ['knowledge-base'],
   },
   {
-    id: 'pilot',
-    title: 'Pilot Build',
-    climb: '1 → 2',
-    shape: 'Fixed fee · four to eight weeks',
+    id: 'plugins',
+    from: 'rung-3',
+    climb: 'Rung 3 → 4',
+    title: 'Shared tooling, with guardrails',
     summary:
-      'One named workflow, end to end: connectors into your data, the working tooling, and an evaluation harness that proves it — deployed in your environment, not ours.',
-  },
-  {
-    id: 'marketplace',
-    title: 'Private Plugin Marketplace',
-    climb: '2 → 3',
-    flag: 'flagship',
-    shape:
-      'Setup fee + subscription · the subscription carries every level above this one',
-    summary:
-      'Your proven workflows, packaged as versioned plugins in a private managed catalog. Every relevant employee gets the same vetted tooling on day one; updates propagate automatically; IT knows exactly what runs where.',
+      'We package the workflows that work into plugins your whole company installs from one private catalog, and add security plugins so IT decides what Claude can and cannot do on company machines.',
+    solutions: ['install-guard'],
   },
   {
     id: 'agents',
-    title: 'Agent Deployment',
-    climb: '3 → 4',
-    shape: 'Scoped builds · delivered into your marketplace subscription',
+    from: 'rung-4',
+    climb: 'Rung 4 → 5',
+    title: 'Long-running agents',
     summary:
-      'Long-running agents on the workflows your marketplace already standardized — with trust gates (draft, then approve, then act), observability, and cost tracking treated as seriously as any production system.',
+      'For companies that are ready, we set up long-running agents on workflows that are already standardized.',
+    solutions: ['agent-provisioning'],
   },
   {
-    id: 'retainer',
-    title: 'AI Operations Retainer',
-    climb: '4 → 5',
-    shape: 'Monthly retainer · three-month minimum',
+    id: 'orchestration',
+    from: 'rung-5',
+    climb: 'Rung 5 → 6',
+    title: 'Agents composed into systems',
     summary:
-      'For companies whose agents already work and whose question has become orchestration: agents composed into supervised systems that own processes end to end, verified adversarially, and measured for quality and cost.',
-  },
-  {
-    id: 'fractional',
-    title: 'Fractional AI Engineer',
-    climb: 'any level',
-    flag: 'ongoing',
-    shape:
-      'Fixed days per month · three-month minimum · pairs with any level of the ladder',
-    summary:
-      'A senior AI engineer on your team for a fixed number of days each month — embedded, in your environment, under your priorities.',
+      'For the few companies already running agents unattended, we help compose them into supervised systems that own whole processes, with people setting policy and handling the exceptions.',
   },
 ];
 
-export function getService(id: string): Service {
-  const service = services.find((s) => s.id === id);
-  if (!service) throw new Error(`Unknown service: ${id}`);
-  return service;
+export function serviceFor(levelId: string): Service | undefined {
+  return services.find((s) => s.from === levelId);
 }
 
-export type Product = {
-  /** Anchor on /products/. */
+/** The one ladder climb a solution is specific to, if any. */
+export function climbUsing(solutionId: string): Service | undefined {
+  return services.find((s) => s.solutions?.includes(solutionId));
+}
+
+/** Every solution put to work at a climb: its own, then the ones used at every climb. */
+export function solutionsFor(climb: Service): Solution[] {
+  return [
+    ...(climb.solutions ?? []).map(getSolution),
+    ...solutions.filter((s) => s.everyClimb),
+  ];
+}
+
+/** Where a solution is put to work, as a short label: "Every climb" or "Rung 2 → 3". */
+export function climbLabel(solutionId: string): string | undefined {
+  if (getSolution(solutionId).everyClimb) return 'Every climb';
+  return climbUsing(solutionId)?.climb;
+}
+
+export type Solution = {
+  /** Anchor on /solutions/. */
   id: string;
-  code: string;
+  kind: 'service' | 'product';
   name: string;
   summary: string;
+  /** Put to work at every climb of the ladder, not one rung. */
+  everyClimb?: boolean;
 };
 
-export const products: Product[] = [
+/** What we offer: services from our team, then software we build and run. */
+export const solutions: Solution[] = [
   {
-    id: 'clearance',
-    code: 'P1',
-    name: 'Clearance',
+    id: 'strategic-consulting',
+    kind: 'service',
+    everyClimb: true,
+    name: 'Strategic AI consulting',
     summary:
-      "Retrieval over SharePoint, Google Drive, and Document360 that respects every document's existing permissions.",
+      'We find the rung your company is on and plan the climb to the next one. It starts with research: interviews and user studies on how your people work and how you expect them to use AI, so each step fits how your company actually runs.',
+  },
+  {
+    id: 'agent-provisioning',
+    kind: 'service',
+    name: 'Long-running agent provisioning',
+    summary:
+      'For companies that are ready, we provision long-running agents on workflows that are already standardized, so whole tasks run without a person at the keyboard.',
+  },
+  {
+    id: 'knowledge-base',
+    kind: 'product',
+    name: 'Knowledge Base',
+    summary:
+      'One knowledge base for your team and its AI tools. Notes are plain Markdown kept wherever you already store files, such as SharePoint, Google Drive, or GitHub, and work with whichever AI tool your people use, such as Claude Desktop, ChatGPT Codex, or Hermes Agent.',
+  },
+  {
+    id: 'install-guard',
+    kind: 'product',
+    name: 'Install Guard',
+    summary:
+      'Stops Claude from downloading or installing software on company machines. Downloads and installers are blocked, package managers need an explicit yes, and IT owns the exceptions. It holds even when permission prompts are turned off.',
+  },
+  {
+    id: 'costlens',
+    kind: 'product',
+    everyClimb: true,
+    name: 'Costlens',
+    summary:
+      'Shows where your Claude spend leaks: long carried context, prompt caches that expire between turns, expensive models doing simple work, and agents re-reading what the project already knew. It reads Claude Code’s built-in telemetry and session transcripts, and recommends a fix for each leak.',
   },
 ];
 
-export const principles: { title: string; body: string }[] = [
-  {
-    title: 'One rung at a time.',
-    body: 'A Level-1 company asking for agent swarms gets told no, and why, with the ladder as the explanation. Everyone else is selling the teleporter; declining to is the most valuable thing we do.',
-  },
-  {
-    title: 'Evidence over demos.',
-    body: 'Every build ships with an evaluation harness. If we can’t measure that the workflow works — on your data, against your definition of “works” — we don’t call it done.',
-  },
-  {
-    title: 'Your environment, your data.',
-    body: 'Work is deployed inside your infrastructure and wired to your systems. Nothing valuable about how your company operates should live on a consultant’s laptop.',
-  },
-  {
-    title: 'We run on what we sell.',
-    body: 'The firm’s own operations run at Levels 4 and 5: long-running agents triage our mail, watch our infrastructure, and ship our software daily. When we demo autonomous operations, we demo our own.',
-  },
-];
+/** The software half of `solutions`, for the home page's products section. */
+export const products = solutions.filter((s) => s.kind === 'product');
+
+export function getSolution(id: string): Solution {
+  const solution = solutions.find((s) => s.id === id);
+  if (!solution) throw new Error(`Unknown solution: ${id}`);
+  return solution;
+}
 
 export type Founder = {
   id: string;

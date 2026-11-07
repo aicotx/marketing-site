@@ -1,9 +1,9 @@
 import {
+  climbLabel,
   founders,
   levels,
-  principles,
-  products,
   services,
+  solutions,
 } from '@/lib/content';
 import { absoluteUrl } from '@/lib/seo';
 import { site } from '@/lib/site';
@@ -19,24 +19,14 @@ export const dynamic = 'force-static';
 /** One-line definitions of the core entities, for quick extraction. */
 const concepts: { term: string; definition: string }[] = [
   {
-    term: 'AI maturity ladder',
+    term: 'AI adoption ladder',
     definition:
-      'The firm’s six-level model of how a company uses AI, from Shadow AI (L0) to orchestrated, agent-first operations (L5). Each level is the prerequisite for the one above it.',
-  },
-  {
-    term: 'Per-function assessment',
-    definition:
-      'Companies are assessed function by function, never as a single number. Engineering at Level 2 while operations sits at Level 0 is the normal case; the audit deliverable is a heatmap of function × level.',
+      'The firm’s six-rung model of how companies adopt AI: Experimenting (Rung 1), Licensed (Rung 2), Assisted (Rung 3), Standardized (Rung 4), Systemic (Rung 5), and Essential (Rung 6). Each rung builds on the one below it.',
   },
   {
     term: 'One rung at a time',
     definition:
-      'Every engagement moves a company exactly one level up the ladder. The firm deliberately sells nothing bigger than the next level, because skipping rungs is how AI initiatives fail.',
-  },
-  {
-    term: 'Evaluation harness',
-    definition:
-      'A repeatable measurement of a workflow against the client’s data and definition of “works.” Every build ships with one; it is the definition of done.',
+      'The firm helps a company climb to the next rung, not the top. Skipping rungs is how AI projects stall.',
   },
 ];
 
@@ -48,7 +38,7 @@ export function GET() {
   lines.push(`> ${site.description}`);
   lines.push('');
   lines.push(
-    `${site.name} (${site.legalName}) is an applied-AI consultancy organized as a Texas limited liability company. It places companies on a six-level AI maturity ladder, function by function, and sells exactly one rung of climb at a time: fixed-scope engagements that end with a working system deployed in the client’s environment and an evaluation that proves it. The firm runs its own operations on the agentic infrastructure it deploys for clients. This file maps the site’s primary content for language models and answer engines.`,
+    `${site.name} (${site.legalName}) is an applied-AI agency organized as a Texas limited liability company. It places companies on a six-rung AI adoption ladder and helps them climb one rung at a time, with research, setup, and its own software. This file maps the site’s primary content for language models and answer engines.`,
   );
   lines.push('');
 
@@ -68,44 +58,37 @@ export function GET() {
   }
   lines.push('');
 
-  lines.push('## Services');
+  lines.push('## How we help, by rung');
   lines.push('');
   for (const service of services) {
     lines.push(
-      `- [${service.title}](${absoluteUrl(`/services/#${service.id}`)}) — climb ${service.climb}; ${service.shape}: ${service.summary}`,
+      `- [${service.title}](${absoluteUrl(`/ladder/#${service.from}`)}) — ${service.climb}: ${service.summary}`,
     );
   }
   lines.push('');
 
-  lines.push('## Products');
+  lines.push('## Solutions');
   lines.push('');
-  for (const product of products) {
+  for (const solution of solutions) {
     lines.push(
-      `- [${product.name}](${absoluteUrl(`/products/#${product.id}`)}): ${product.summary}`,
+      `- [${solution.name}](${absoluteUrl(`/solutions/#${solution.id}`)}) (${[solution.kind, climbLabel(solution.id)].filter(Boolean).join(', ')}): ${solution.summary}`,
     );
-  }
-  lines.push('');
-
-  lines.push('## How we work');
-  lines.push('');
-  for (const principle of principles) {
-    lines.push(`- **${principle.title}** ${principle.body}`);
   }
   lines.push('');
 
   lines.push('## Company');
   lines.push('');
   lines.push(
-    `- [The Ladder](${absoluteUrl('/ladder/')}): the full methodology — what each level looks like, what breaks if you stay, and the exit to the next rung.`,
+    `- [Solutions](${absoluteUrl('/solutions/')}): the firm’s services and the software it builds and runs, and the rung where each is put to work.`,
   );
   lines.push(
-    `- [Approach](${absoluteUrl('/approach/')}): how the firm works — one rung at a time, evidence over demos, fixed scope priced on value, and what it won’t do.`,
+    `- [The Ladder](${absoluteUrl('/ladder/')}): what each rung looks like, what the next one takes, and how the firm helps.`,
   );
   lines.push(
     `- [Company](${absoluteUrl('/company/')}): the founders — ${founders.map((f) => `${f.name} (${f.role})`).join('; ')}.`,
   );
   lines.push(
-    `- Contact: write to ${site.email} with a few paragraphs about how work gets done at your company; replies come from an engineer within two business days.`,
+    `- Contact: book a discovery call by emailing ${site.email}; on the call the firm places your company on the ladder and says what the next rung would take.`,
   );
   lines.push('');
 

@@ -7,7 +7,13 @@ import { RevealObserver } from '@/components/reveal-observer';
 import { SmoothScroll } from '@/components/smooth-scroll';
 import { ThemeProvider } from '@/components/theme-provider';
 import { ThemeToggle } from '@/components/theme-toggle';
-import { graph, openGraphDefaults, organizationLd, websiteLd } from '@/lib/seo';
+import {
+  graph,
+  openGraphDefaults,
+  organizationLd,
+  pageTitle,
+  websiteLd,
+} from '@/lib/seo';
 import { site } from '@/lib/site';
 import './globals.css';
 
@@ -21,18 +27,21 @@ const lora = Lora({
   subsets: ['latin'],
 });
 
+/** The home page leads with the name; every other page ends with it (pageTitle). */
+const homeTitle = `${site.name} • ${site.titleTagline}`;
+
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: `${site.name} • ${site.tagline}`,
-    template: `%s • ${site.name}`,
+    default: homeTitle,
+    template: pageTitle('%s'),
   },
   description: site.description,
   openGraph: {
     ...openGraphDefaults,
     type: 'website',
     url: '/',
-    title: `${site.name} • ${site.tagline}`,
+    title: homeTitle,
     description: site.description,
   },
   // title, description and image fill in from each page's openGraph

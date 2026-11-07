@@ -3,7 +3,10 @@ export const site = {
   legalName: 'AICOTX LLC',
   url: 'https://aicotx.com',
   email: 'hello@aicotx.com',
+  /** Sentence case, for the hero headline. */
   tagline: 'Helping businesses wrangle real value out of AI',
+  /** Title case, for page titles and social cards. */
+  titleTagline: 'Helping Businesses Wrangle Real Value out of AI',
   description:
     'The AI Company of Texas is an agency that helps businesses wrangle real value out of AI',
   social: {
@@ -13,9 +16,7 @@ export const site = {
 
 /** Primary navigation, in order. The header appends a Contact mailto link. */
 export const nav = [
+  { href: '/solutions/', label: 'Solutions' },
   { href: '/ladder/', label: 'The Ladder' },
-  { href: '/services/', label: 'Services' },
-  { href: '/products/', label: 'Products' },
-  { href: '/approach/', label: 'Approach' },
   { href: '/company/', label: 'Company' },
 ] as const;

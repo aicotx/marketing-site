@@ -9,7 +9,7 @@ import seal from '@/public/assets/img/logo_seal.png';
 import sealDark from '@/public/assets/img/logo_seal_dark.png';
 
 const smallLinkClass =
-  'text-ink no-underline transition-opacity duration-150 hover:opacity-60';
+  'no-underline transition-opacity duration-150 hover:opacity-60';
 
 /**
  * Site footer, a
@@ -20,25 +20,27 @@ export function SiteFooter() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="bg-background pt-[clamp(96px,14vw,200px)] pb-[clamp(64px,8vw,120px)] text-link">
+    <footer className="bg-background pt-[clamp(96px,14vw,200px)] pb-[clamp(64px,8vw,120px)] text-ink">
       <Shell rail>
         {/* the name, sized off the container width so it always spans it */}
         <div className="@container">
           <p
             aria-hidden="true"
-            className="text-center font-serif text-[13.8cqw] leading-[0.95] tracking-[-0.04em] whitespace-nowrap text-ink md:text-[9.1cqw] md:leading-none"
+            className="text-center font-serif text-[13.8cqw] leading-[0.95] tracking-[-0.04em] whitespace-nowrap md:text-[9.1cqw] md:leading-none"
           >
             The AI Company
             <br className="md:hidden" /> of Texas
           </p>
         </div>
 
-        <div className="mt-[clamp(32px,4vw,56px)] grid grid-cols-1 items-center gap-10 text-center lg:grid-cols-3 lg:gap-6">
-          <div className="flex flex-col items-center gap-3 lg:flex-row lg:text-left">
+        {/* lg up: the motto is dead center under the name, and each side holds
+            at most two lines, the location stacked and the description balanced */}
+        <div className="mt-[clamp(32px,4vw,56px)] grid grid-cols-1 items-center gap-10 text-center font-medium text-link lg:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] lg:gap-8">
+          <div className="flex flex-col items-center gap-3 lg:flex-row lg:justify-self-start">
             {/* the seal ships as black and white artwork; show the one for the theme */}
             <HomeLink
               aria-label={`${site.name} home`}
-              className="shrink-0 transition-opacity duration-150 hover:opacity-70"
+              className="shrink-0 transition-opacity duration-150"
             >
               <Image src={seal} alt="" className="size-16 dark:hidden" />
               <Image
@@ -47,34 +49,39 @@ export function SiteFooter() {
                 className="hidden size-16 dark:block"
               />
             </HomeLink>
-            <span className="max-w-[34ch] text-balance text-muted-foreground">
-              {site.description}
-            </span>
+            <p className="flex flex-col lg:text-left">
+              <span>Austin, Texas</span>
+              <span>
+                © {year} {site.legalName}
+              </span>
+            </p>
           </div>
 
-          <div className="flex items-center justify-center gap-4 lg:gap-6">
-            <Rope className="h-28 w-auto shrink-0 text-ink" />
-            <span className="max-w-[26ch] font-medium text-balance text-ink">
+          <div className="flex items-center justify-center gap-4">
+            <Rope className="h-28 w-auto shrink-0" />
+            <span className="font-serif font-semibold whitespace-nowrap">
               Come and make it
             </span>
-            <Rope className="h-28 w-auto shrink-0 -scale-x-100 text-ink" />
+            <Rope className="h-28 w-auto shrink-0 -scale-x-100" />
           </div>
 
-          <p className="text-muted-foreground lg:text-right">
-            Austin, Texas
-            <br />© {year} {site.legalName}
+          <p className="mx-auto max-w-[34ch] text-balance lg:mx-0 lg:max-w-[46ch] lg:justify-self-end lg:text-right">
+            {site.description}
           </p>
         </div>
 
-        <div className="mt-[clamp(40px,5vw,64px)] flex flex-wrap items-center justify-between gap-x-10 gap-y-4 border-t border-border pt-6 text-fine text-muted-foreground">
-          <nav aria-label="Footer" className="flex flex-wrap gap-x-6 gap-y-2">
+        <div className="mt-[clamp(40px,5vw,64px)] flex flex-col items-center gap-x-10 gap-y-4 border-t border-border pt-6 text-fine md:flex-row md:flex-wrap md:justify-between">
+          <nav
+            aria-label="Footer"
+            className="flex flex-wrap justify-center gap-x-6 gap-y-2"
+          >
             {nav.map((l) => (
               <Link key={l.href} href={l.href} className={smallLinkClass}>
                 {l.label}
               </Link>
             ))}
           </nav>
-          <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
+          <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
             <a
               href={site.social.linkedin}
               target="_blank"

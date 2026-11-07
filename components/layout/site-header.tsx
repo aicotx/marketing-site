@@ -83,7 +83,7 @@ export function SiteHeader() {
                 href={l.href}
                 aria-current={current(l.href)}
                 className={cn(
-                  'relative whitespace-nowrap py-1 text-tight font-medium text-ink no-underline transition-opacity duration-150 hover:opacity-60',
+                  'relative whitespace-nowrap py-1 text-caption font-medium text-ink no-underline transition-opacity duration-150 hover:opacity-60',
                   'after:absolute after:inset-x-0 after:-bottom-0.5 after:h-px after:origin-left after:scale-x-0 after:bg-ink after:transition-transform after:duration-200 aria-[current=page]:after:scale-x-100',
                 )}
               >
@@ -154,7 +154,7 @@ export function SiteHeader() {
                 href={l.href}
                 aria-current={current(l.href)}
                 onClick={close}
-                className="flex items-center border-b border-border py-6 font-serif text-h3 text-ink/80 no-underline transition-colors hover:text-ink aria-[current=page]:text-ink"
+                className="flex items-center border-b border-border py-6 font-serif text-h3 text-ink no-underline transition-colors aria-[current=page]:text-ink"
               >
                 {l.label}
               </Link>
